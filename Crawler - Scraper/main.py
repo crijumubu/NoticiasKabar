@@ -22,26 +22,35 @@ listNews = list()
 for article in articlesContainer:
 
     articleDetails = article.find('div', class_ ='article-details')
-
     category = articleDetails.find('div', class_ ='category-published').a.text
     title = articleDetails.h3.find('a', class_='title page-link').text
     link = url + articleDetails.h3.find('a', class_='multimediatag page-link')['href']
+    
     description = ''
+    image = ''
 
     # Si no encuentra una descripcion para la noticias procede a agregarla a la lista asi sin descripcion
 
     try:
-        description = articleDetails.find('div', class_ ='epigraph-container').a.text
+        description = article.find('div', class_ ='epigraph-container').a.text
     except:
-        pass
+        description = 'No encontrado'
     
-    # Por el momento se agrega a la lista sin una imagen
+    # Si no encuentra una imagen para la noticias procede a agregarla a la lista asi sin descripcion
 
-    listNews.append(ns.news(category, title, description, link))
+    try:
+        image = url + article.figure.a.picture.source.attrs.get("data-original",None)
+        #image = url + article.div.figure.a.picture.img['src'].attrs.get("data-original",None)
+    except:
+         image = 'No encontrado'
+
+    # Insercion de la noticia a la lista de noticias
+
+    listNews.append(ns.news(category, title, description, image, link))
 
 # Visualizacion de las noticias obtenidas
 
 cont = 1
 for obj in listNews:
-    print(f'Noticia {cont}\n{obj.toString()}\n')
+    print(f'NOTICIA {cont}\n\n{obj.toString()}\n')
     cont += 1
