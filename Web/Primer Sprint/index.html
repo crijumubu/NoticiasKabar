@@ -52,13 +52,16 @@
     <div class="content">
 
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean in ante semper ligula ornare mollis ac vitae tortor. Phasellus elementum sapien non molestie pulvinar. Phasellus in luctus libero. Aenean massa libero, faucibus at condimentum ut, commodo
-        non libero. Duis ut ipsum luctus, viverra ligula in, ultrices odio. Sed sed posuere nibh. Cras metus enim, ultrices at sodales et, consectetur in magna. Vestibulum cursus convallis tortor, sed finibus felis commodo at. Donec vestibulum lorem eget
-        mattis convallis. Cras maximus tincidunt orci at ullamcorper. In hac habitasse platea dictumst. Etiam nulla nisl, molestie a eros vestibulum, gravida scelerisque tortor. Proin tincidunt vestibulum laoreet. Fusce eros velit, imperdiet a imperdiet
-        id, facilisis sed lorem. Mauris at elit efficitur, laoreet tortor sed, imperdiet dui. In et massa vel dui lobortis egestas. Nam commodo et eros in aliquam. Praesent tempor dapibus turpis. Duis pharetra fermentum felis ut iaculis. Mauris vitae
-        ex lobortis, commodo dolor non, malesuada eros. Vestibulum ac tortor odio. Nunc a neque quis mi scelerisque auctor non id justo. Donec sit amet magna nec lectus dictum varius vel vel turpis. Pellentesque non lacus porta, posuere diam quis, pretium
-        massa. Donec posuere ullamcorper ex, id porttitor turpis tempor eget. Donec sed volutpat orci. Etiam purus sem, condimentum non nibh sit amet, maximus elementum leo. Morbi iaculis ac ante sit amet tempus. Cras tempus, nibh sit amet commodo viverra,
-        justo elit vestibulum urna, at sagittis orci turpis vitae dolor. Vivamus at vehicula sem, sed suscipit urna. Sed vitae ligula sed tellus viverra tristique eu at velit. Duis posuere metus ut velit ullamcorper, at elementum nisi laoreet. Sed in
-        nisi non ante hendrerit commodo at in mi. Sed lobortis enim quis tempor tristique. Aenean ac massa urna. Integer pulvinar sem ut est imperdiet ultrices. Suspendisse potenti. Etiam quis dolor vitae urna auctor feugiat a quis magna. Suspendisse
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean in ante semper ligula ornare mollis ac vitae tortor. Phasellus elementum sapien non molestie pulvinar. Phasellus in luctus libero. Aenean massa libero, faucibus at condimentum ut,
+        commodo Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean in ante semper ligula ornare mollis ac vitae tortor. Phasellus elementum sapien non molestie pulvinar. Phasellus in luctus libero. Aenean massa libero, faucibus at condimentum
+        ut, commodo Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean in ante semper ligula ornare mollis ac vitae tortor. Phasellus elementum sapien non molestie pulvinar. Phasellus in luctus libero. Aenean massa libero, faucibus at condimentum
+        ut, commodo non libero. Duis ut ipsum luctus, viverra ligula in, ultrices odio. Sed sed posuere nibh. Cras metus enim, ultrices at sodales et, consectetur in magna. Vestibulum cursus convallis tortor, sed finibus felis commodo at. Donec vestibulum
+        lorem eget mattis convallis. Cras maximus tincidunt orci at ullamcorper. In hac habitasse platea dictumst. Etiam nulla nisl, molestie a eros vestibulum, gravida scelerisque tortor. Proin tincidunt vestibulum laoreet. Fusce eros velit, imperdiet
+        a imperdiet id, facilisis sed lorem. Mauris at elit efficitur, laoreet tortor sed, imperdiet dui. In et massa vel dui lobortis egestas. Nam commodo et eros in aliquam. Praesent tempor dapibus turpis. Duis pharetra fermentum felis ut iaculis. Mauris
+        vitae ex lobortis, commodo dolor non, malesuada eros. Vestibulum ac tortor odio. Nunc a neque quis mi scelerisque auctor non id justo. Donec sit amet magna nec lectus dictum varius vel vel turpis. Pellentesque non lacus porta, posuere diam quis,
+        pretium massa. Donec posuere ullamcorper ex, id porttitor turpis tempor eget. Donec sed volutpat orci. Etiam purus sem, condimentum non nibh sit amet, maximus elementum leo. Morbi iaculis ac ante sit amet tempus. Cras tempus, nibh sit amet commodo
+        viverra, justo elit vestibulum urna, at sagittis orci turpis vitae dolor. Vivamus at vehicula sem, sed suscipit urna. Sed vitae ligula sed tellus viverra tristique eu at velit. Duis posuere metus ut velit ullamcorper, at elementum nisi laoreet.
+        Sed in nisi non ante hendrerit commodo at in mi. Sed lobortis enim quis tempor tristique. Aenean ac massa urna. Integer pulvinar sem ut est imperdiet ultrices. Suspendisse potenti. Etiam quis dolor vitae urna auctor feugiat a quis magna. Suspendisse
         potenti. Cras id urna ut justo aliquam finibus ut eu elit. Aenean blandit metus urna, a pellentesque nisl semper et. Curabitur arcu magna, ultricies eu tristique id, ornare at purus. Donec turpis metus, egestas vitae augue quis, imperdiet maximus
         nunc. Pellentesque in finibus sem. Donec efficitur eros eget purus iaculis, ac facilisis nibh feugiat. Ut a nunc nec libero bibendum pharetra id nec sapien. Integer ac lectus gravida sem faucibus molestie. Sed eros nunc, ornare ac dapibus fermentum,
         tincidunt aliquet metus. Nulla vulputate aliquam risus ac luctus. Proin euismod nunc quis laoreet iaculis. In non dolor at lectus commodo interdum ac eget leo. Donec nulla mauris, vulputate nec enim eu, maximus cursus nunc. Fusce elit nisi, ultricies
@@ -91,6 +94,24 @@
             </div>
         </div>
     </div>
+
+    <script>
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                // acc.style.borderEndEndRadius = 12;
+                var panel = this.nextElementSibling;
+                if (panel.style.maxHeight) {
+                    panel.style.maxHeight = null;
+                } else {
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>
