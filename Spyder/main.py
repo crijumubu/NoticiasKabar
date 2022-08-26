@@ -36,7 +36,7 @@ def extractMain():
         # Verificacion de que se encuentre una imagen y una descripcion, por el contrario se omite la noticia
         
         try:
-            
+
             description = extractSpecific(link)[0]
             image = url + extractSpecific(link)[1]
             
@@ -70,9 +70,14 @@ def extractSpecific(url):
     # Obtencion de la descripcion y la imagen de la noticia
     
     articlesContainer = soup.find('div', class_='main-container')
-
+    
     description = articlesContainer.find('div', 'middle-content').h2.text
-    image = articlesContainer.find('section', class_='intro articulos').picture.source['srcset']
+    
+    imagePictureContainer = articlesContainer.find('section', class_='intro articulos').picture
+    image = imagePictureContainer.img['src']
+    
+    if (image == '/images/1x1.png' or image == ''):
+        image = imagePictureContainer.source['data-original']
     
     # Retorno de la descripcion y la imagen
     
