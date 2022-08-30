@@ -34,22 +34,24 @@ def extractMain():
     
     extractNewsInitialInformation(url, articles)
     
-    # Recorrido o barrido de cada una de las noticias que se encontraron en el panel principal 
-    
+    source = 'Portafolio'
+
+    # Recortrido o barrido de cada una de las noticias que se encontraron en el panel principal 
+
     for newsLink in newsLinkDictionary:
         
         # Acceso a la categoria de la noticias a traves de la llave del diccionario
         
         category = newsLinkDictionary[newsLink]
         
-        # Extraccion del titulo, descripcion e imagen de la noticia
+        # Extraccion de la categoria junto con el enlace de la noticias y definicion de la fuente de extraccion de la noticia
         
         title, description, image = extractInformation(url, newsLink)
         
         # Insercion de la noticia a la lista de las noticias
         
-        listNews.append(ns.news(newsLink, category, title, description, image))
-        
+        listNews.append(ns.news(category, title, description, image, source, newsLink))
+
     return listNews
 
 # Metodo el cual extrae el enlace y la categoria de las noticias 
@@ -106,3 +108,5 @@ def extractInformation(url, newsLink):
     # Retorno del titulo, descripcion e imagen de la noticia
     
     return title, description, image
+
+extractMain()

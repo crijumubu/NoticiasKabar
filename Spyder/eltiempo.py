@@ -42,14 +42,15 @@ def extractMain():
         # Acceso a la categoria de la noticias a traves de la llave del diccionario
         
         category = newsLinkDictionary[newsLink]
-        
+        source = 'El tiempo'
+
         # Extraccion del titulo, descripcion e imagen de la noticia
         
         title, description, image = extractInformation(url, newsLink)
         
         # Insercion de la noticia a la lista de las noticias
         
-        listNews.append(ns.news(newsLink, category, title, description, image))
+        listNews.append(ns.news(category, title, description, image, source, newsLink))
         
     return listNews
 
@@ -99,7 +100,7 @@ def extractInformation(url, newsLink):
     
     # Obtencion del div que contiene la informacion que se desea extraer
     
-    articlesContainer = soup.find('div', class_='main-container').article
+    articlesContainer = soup.find('article', class_='content_grid articulo article default')
     
     # Obtencion del titulo, descripcion e imagen de la noticia
     

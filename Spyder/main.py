@@ -1,6 +1,7 @@
 # Importacion de los spyder especificos para cada portal de noticias
 
 import eltiempo as et
+import portafolio as pt
 
 # Definicion del metodo principal
 
@@ -12,8 +13,8 @@ def main():
     
     # Extraccion de noticias para el portal del tiempo
     
-    listNews = et.extractMain()
-    
+    listNews = et.extractMain() + pt.extractMain()
+
     # Recorrido o barrido de cada una de las noticias que se encontraron de los diferentes portales definidos
     
     contadorNoticias = 1
