@@ -1,6 +1,7 @@
 :root{
     --color-barra: #FFD60A;
     --color-iconos-barra: #000;
+    --color-info: #000814;
     --color-titulos: ;
     --color-categoria: ;
     --color-subtitulo: ;
@@ -82,12 +83,21 @@
     /* overflow: hidden; */
 }
 
+a{
+    text-decoration: none;
+
+}
+
+a:visited{
+    text-decoration: none;
+}
+
+
 .link-side{
     display: block;
     white-space: nowrap;
     margin: 30px 0px;
     padding-left: 20px;
-    text-decoration: none;
     word-spacing: 15px;
 
     cursor: pointer;
@@ -166,9 +176,10 @@
 }
 
 .news{
-    overflow: hidden;
     /* padding: 20px ; */
     position: relative;
+    display: grid;
+    grid-template-rows: 60% 1fr;
     /* border: 1px solid var(--color-iconos-barra); */
     /* background-image: url(/img/1.jpg);
     background-repeat: no-repeat;
@@ -197,28 +208,33 @@ h3{
     display: inline-block;
     border-radius: 10px;
     font-size: 0.8rem;
+    color: #000;
     text-shadow:  2px 2px 5px #fff;
 }
 
 h2{
-    /* overflow: hidden;
+    overflow: hidden;
     white-space: nowrap;
-    text-overflow: ellipsis; */
+    text-overflow: ellipsis;
 }
 
 h4{
     font-size: 0.6rem;
+    color: #b7b7b7;
 }
 
 
 .info{
     padding: 10px 40px 20px 40px;
-    background-color: #003566;
+    background-color: var(--color-info);
     border-radius: 0px 0px 20px 20px;
     opacity: 0.9;
     backdrop-filter: blur(40px);
     color: #fff;
+    overflow: hidden;
+
 }
+
 
 
 
