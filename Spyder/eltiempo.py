@@ -31,26 +31,39 @@ def extractMain():
     
     global newsLinkDictionary
     
-    # Extraccion de la categoria junto con el enlace de la noticias
+    # Extraccion de la categoria junto con el enlace de la noticias y definicion de la fuente de la noticia
     
-    extractNewsInitialInformation(url, articles)
+    try:
+
+        extractNewsInitialInformation(url, articles)
+
+    except:
+
+        pass
     
+    source = 'El tiempo'
+
     # Recorrido o barrido de cada una de las noticias que se encontraron en el panel principal 
     
     for newsLink in newsLinkDictionary:
         
-        # Acceso a la categoria de la noticias a traves de la llave del diccionario
-        
-        category = newsLinkDictionary[newsLink]
-        source = 'El tiempo'
+        try:
 
-        # Extraccion del titulo, descripcion e imagen de la noticia
-        
-        title, description, image = extractInformation(url, newsLink)
-        
-        # Insercion de la noticia a la lista de las noticias
-        
-        listNews.append(ns.news(category, title, description, image, source, newsLink))
+            # Acceso a la categoria de la noticias a traves de la llave del diccionario
+            
+            category = newsLinkDictionary[newsLink]
+
+            # Extraccion del titulo, descripcion e imagen de la noticia
+            
+            title, description, image = extractInformation(url, newsLink)
+            
+            # Insercion de la noticia a la lista de las noticias
+            
+            listNews.append(ns.news(category, title, description, image, source, newsLink))
+
+        except:
+
+            continue
         
     return listNews
 
@@ -69,14 +82,9 @@ def extractNewsInitialInformation(url, articles):
         
         # Extraccion de la categoria y el enlace de la noticia
         
-        try:
-            
-            articleCategory = article.find('div', class_='category-published').a.text
-            articleLink = url + article.h2.a['href']
-            
-        except:
-            
-            articleLink = url + article.h3.a['href']
+        articleCategory = article.find('div', class_='category-published').a.text
+        articleLink = url + article.h2.a['href']
+        #articleLink = url + article.h3.a['href']
         
         # Insercion del enlace de la noticia junto con la categoria de la misma al diccionario definido
         
@@ -104,20 +112,14 @@ def extractInformation(url, newsLink):
     
     # Obtencion del titulo, descripcion e imagen de la noticia
     
-    try:
+    title = articlesContainer.h1.text
+    description = articlesContainer.h2.text
+    image = articlesContainer.img['src']
     
-        title = articlesContainer.h1.text
-        description = articlesContainer.h2.text
-        image = articlesContainer.img['src']
+    if (image == '/images/1x1.png'):
+        image = articlesContainer.picture.source['data-original']
         
-        if (image == '/images/1x1.png'):
-            image = articlesContainer.picture.source['data-original']
-            
-        image = url + image
-        
-    except:
-        
-        pass
+    image = url + image
     
     # Retorno del titulo, descripcion e imagen de la noticia
     

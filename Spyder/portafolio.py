@@ -30,9 +30,15 @@ def extractMain():
     
     global newsLinkDictionary
     
-    # Extraccion de la categoria junto con el enlace de la noticias
+    # Extraccion de la categoria junto con el enlace de la noticias y definicion de la fuente de la noticia
     
-    extractNewsInitialInformation(url, articles)
+    try:
+        
+        extractNewsInitialInformation(url, articles)
+
+    except:
+
+        pass
     
     source = 'Portafolio'
 
@@ -40,17 +46,23 @@ def extractMain():
 
     for newsLink in newsLinkDictionary:
         
-        # Acceso a la categoria de la noticias a traves de la llave del diccionario
-        
-        category = newsLinkDictionary[newsLink]
-        
-        # Extraccion de la categoria junto con el enlace de la noticias y definicion de la fuente de extraccion de la noticia
-        
-        title, description, image = extractInformation(url, newsLink)
-        
-        # Insercion de la noticia a la lista de las noticias
-        
-        listNews.append(ns.news(category, title, description, image, source, newsLink))
+        try:
+
+            # Acceso a la categoria de la noticias a traves de la llave del diccionario
+            
+            category = newsLinkDictionary[newsLink]
+            
+            # Extraccion de la categoria junto con el enlace de la noticias y definicion de la fuente de extraccion de la noticia
+            
+            title, description, image = extractInformation(url, newsLink)
+            
+            # Insercion de la noticia a la lista de las noticias
+            
+            listNews.append(ns.news(category, title, description, image, source, newsLink))
+
+        except:
+
+            pass
 
     return listNews
 
