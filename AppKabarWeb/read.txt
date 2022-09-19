@@ -1,0 +1,7 @@
+
+// para generar el package jason basico
+npm init --yes
+
+////////////intalacion de modulos
+Express
+npm install express
