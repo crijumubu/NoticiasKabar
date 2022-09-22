@@ -1,0 +1,15 @@
+
+// para generar el package jason basico
+npm init --yes
+
+////////////intalacion de modulos
+Express
+npm install express
+
+Nodemon
+npm install nodemom -D
+
+Morgan 
+npm install morgan
+env
+dotenv

@@ -1,4 +1,9 @@
 .vscode/*
 !.vscode/settings.json
+<<<<<<< HEAD
 Web/.vscode/settings.json
 Web/img/1.jpg
+=======
+node_modules/
+.env
+>>>>>>> ApiAndTestDeploy
