@@ -1,6 +1,6 @@
 :root{
-    --color-barra: #FFD60A;
-    --color-iconos-barra: #000;
+    --color-barra: #748CAB;
+    --color-iconos-barra: rgb(0, 0, 0);
     --color-info: #000814;
     --color-titulos: ;
     --color-categoria: ;
@@ -150,7 +150,7 @@ a:visited{
 .grid-2,.grid-3{
     display: grid;
     
-    grid-column-gap: 20px;
+    grid-column-gap: 10px;
     grid-row-gap: 5px;
     padding: 10px 70px 0px 10px;
 }
@@ -172,23 +172,32 @@ a:visited{
 }
 
 /* *Noticia */
+
 .news, img{
-    border-radius: 20px;
+    border-radius: 5px;
 }
 
 .news{
     /* padding: 20px ; */
     position: relative;
-    display: grid;
-    grid-template-rows: 60% 1fr;
+    padding-bottom: 15px;
+    overflow: hidden;
+    /* display: grid; */
+    /* grid-template-rows: 60% 1fr; */
     /* border: 1px solid var(--color-iconos-barra); */
     /* background-image: url(/img/1.jpg);
     background-repeat: no-repeat;
     background-size: cover; */
 }
 
+.news h4,.news h2{
+    padding: 0px 30px;
 
+}
 
+.news h2{
+    color: #0D1321;
+}
 
 
 img{
@@ -196,7 +205,7 @@ img{
     left: 0px;
     position: absolute;
     z-index: -1;
-    opacity: 0.85;
+    opacity: 1;
     height: 100%;
     width: 100%;
     object-fit: cover;
@@ -221,18 +230,25 @@ h2{
 
 h4{
     font-size: 0.6rem;
-    color: #b7b7b7;
+    color: #1D2D44;
 }
 
 
 .info{
     padding: 10px 40px 20px 40px;
-    background-color: var(--color-info);
-    border-radius: 0px 0px 20px 20px;
-    opacity: 0.9;
-    backdrop-filter: blur(40px);
-    color: #fff;
-    overflow: hidden;
+    background-color: #f0ebd8;
+    border-radius: 0px 0px 4px 4px;
+    opacity: 0.8;
+
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 20%;
+    z-index: -1;
+
+    /* backdrop-filter: blur(50px); */
+    /* color: #000; */
+    /* overflow: hidden; */
 
 }
 
