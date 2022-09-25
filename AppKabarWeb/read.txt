@@ -13,3 +13,5 @@ Morgan
 npm install morgan
 env
 dotenv
+/// recordar instalar mongoose
+/// recordar crear archivo .env con la uri compartida en teams
