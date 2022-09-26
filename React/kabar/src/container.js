@@ -40,7 +40,7 @@ class Content extends React.Component{
 
   render(){
 
-  const data = this.state.news.slice(0,20);
+  const data = this.state.news.slice(0,50);
   let temp = [];
 
   console.log(data);
@@ -71,14 +71,18 @@ function New({Url, Image, Title, Descripcion , Category, Fuente, Id}){
   return(
   <a href={Url} className="news" key={Id}>
     <img src={Image} alt="No img"></img>
-    <h3>{Category}</h3>
-    <h2>{Title}</h2>
-    <h4>{Fuente}</h4>
-    {/* <p>{Descripcion}</p> */}
-    <div className="info"></div>
+    <div id="news-info" className="news-info">
+
+      <h2>{Title}</h2>
+      <h4>{Fuente}</h4>
+      <h3><h3 className="category">{Category} <i class="bi  bi-tag-fill catIcon"></i></h3></h3>
+      {/* <p>{Descripcion}</p> */}
+      <div className="info"></div>
+    </div>
   </a>
   );
 }
+
 
 function Grid(arr){
   return(
