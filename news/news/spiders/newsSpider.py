@@ -6,8 +6,8 @@ class newsSpider(scrapy.Spider):
     
     name = 'news'
     
-    start_urls = ['https://www.eltiempo.com/', 'https://www.elespectador.com/', 'https://www.elnuevosiglo.com.co/', 'https://www.elespectador.com/', 'https://www.portafolio.co/']
-    
+    start_urls = ['https://www.eltiempo.com/']
+
     headersElEspectador = {
         "authority": "www.elespectador.com",
         "method": "GET",
@@ -77,6 +77,10 @@ class newsSpider(scrapy.Spider):
                 if '/files' in image:
                     imgDir = image
 
+            if (imgDir == ''):
+                
+                return
+
             title = response.xpath("//h1[@class='titulo ']/text()").get()
             description = response.xpath("//h2[@class='article-epigraph ']/text()").get()
 
@@ -84,14 +88,36 @@ class newsSpider(scrapy.Spider):
 
                 title = response.xpath("//h1[@class='titulo']/text()").get()
 
+                if (title == None):
+
+                    title = response.xpath("//h1[@class='title']/text()").get()
+
+                    if (title == None):
+
+                        title = response.xpath("//h1[@class='title ']/text()").get()
+
             if (description == None):
 
                 description = response.xpath("//h2[@class='article-epigraph']/text()").get()
 
+                if (description == None):
+
+                    description = response.xpath("//p[@class='epigraph']/text()").get()
+
+                    if (description == None):
+
+                        description = response.xpath("//p[@class='epigraph ']/text()").get()
+
+            category = response.xpath("//span[@class='span-following']/text()").get()
+
+            if (category == None):
+
+                category = 'Opinión'
+
             yield {
                 'Title' : title,
                 'Descripcion' : description,
-                'Category' : response.xpath("//span[@class='span-following']/text()").get(),
+                'Category' : category,
                 'Image' : urljoin(response.url, imgDir),
                 'Url' : response.url,
                 'Fuente' : 'El tiempo'
@@ -99,7 +125,7 @@ class newsSpider(scrapy.Spider):
 
         except:
 
-            yield scrapy.Request(response.url, callback=self.emptyYield)
+            return
 
     def parseAPIElEspectador(self, response):
 
@@ -135,7 +161,7 @@ class newsSpider(scrapy.Spider):
 
         except:
 
-            yield scrapy.Request(response.url, callback=self.emptyYield)
+            return
 
     def parseElPortafolio(self, response):
 
@@ -145,7 +171,7 @@ class newsSpider(scrapy.Spider):
 
             for image in response.xpath('//img/@src').extract():
 
-                if '/files' in image and '.jpeg' in image:
+                if 'article_multimedia' in image and '.jpeg' in image:
                     imgDir = image
 
             title = response.xpath("//h1[@class='title tiemposBold8 titularUnderBlanco']/text()").get()
@@ -170,32 +196,31 @@ class newsSpider(scrapy.Spider):
 
         except:
 
-            yield scrapy.Request(response.url, callback=self.emptyYield)
+            return
     
     def parseElNuevoSiglo(self, response):
 
         try:
+            
+            xpath = "//div[@class='clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item']/p[1]"
+
+            while response.xpath(xpath + '/node()') != []:
+
+                xpath += '/node()'
+
+            description = response.xpath(xpath).get()
+
+            image = response.xpath("//div[@class='multimedia']/img/@src").get().replace('//','').split("?")
 
             yield {
                 'Title' : response.xpath("//span[@class='field field--name-title field--type-string field--label-hidden']/text()").get(),
-                'Descripcion' : response.xpath("//div[@class='clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item']/p/strong/text()").get(),
+                'Descripcion' : description,
                 'Category' : response.xpath("//div[@class='container']/h3/text()").get(),
-                'Image' : response.xpath("//div[@class='multimedia']/img/@src").get().replace('//',''),
+                'Image' : image[0],
                 'Url' : response.url,
                 'Fuente' : 'El nuevo siglo'
             }
 
         except:
 
-            yield scrapy.Request(response.url, callback=self.emptyYield)
-
-    def emptyYield(self, response):
-
-        yield  {
-            'Title' : '',
-            'Descripcion' : '',
-            'Category' : '',
-            'Image' : '',
-            'Url' : '',
-            'Fuente' : '',
-        }
+            return
