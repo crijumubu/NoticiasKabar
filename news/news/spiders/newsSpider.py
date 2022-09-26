@@ -5,7 +5,7 @@ from urllib.parse import urljoin
 class newsSpider(scrapy.Spider):
     
     name = 'news'
-    
+
     start_urls = ['https://www.eltiempo.com/', 'https://www.elespectador.com/', 'https://www.elnuevosiglo.com.co/', 'https://www.portafolio.co/']
 
     headersElEspectador = {
@@ -150,6 +150,10 @@ class newsSpider(scrapy.Spider):
 
                 description = response.xpath("//div[@class='ImageArticle-Description']/text()").get()
 
+                if (description == None):
+
+                    return
+
             yield {
                 'Title' : response.xpath("//h1[@class='Title ArticleHeader-Title Title_article']/text()").get(),
                 'Descripcion' : description,
@@ -171,8 +175,13 @@ class newsSpider(scrapy.Spider):
 
             for image in response.xpath('//img/@src').extract():
 
-                if 'article_multimedia' in image and '.jpeg' in image:
+                if ('article_multimedia' in image or 'main_video_image' in image) and ('.jpeg' in image or '.png' in image):
+
                     imgDir = image
+
+            if (imgDir == ''):
+
+                return
 
             title = response.xpath("//h1[@class='title tiemposBold8 titularUnderBlanco']/text()").get()
             description = response.xpath("//p[@class='epigraph regular_lead1']/text()").get()
