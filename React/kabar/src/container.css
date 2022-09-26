@@ -3,7 +3,7 @@
 }
 
 .content{
-    padding: 20px 100px 0px;
+    padding: 0px 100px 0px;
     /* margin-left: 120px; */
     /* margin-top: 50px; */
 }
@@ -116,6 +116,11 @@ h4{
     font-size: 0.6rem;
     color: var(--color-fuente);
     margin-bottom: 10px;
+    font-weight: 400;
+}
+b{
+    font-size: 0.6rem;
+
 }
 
 .news-info{

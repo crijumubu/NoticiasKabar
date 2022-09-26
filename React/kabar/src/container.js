@@ -11,8 +11,6 @@ class Content extends React.Component{
   }
 
   this.fetchApi = this.fetchApi.bind(this);
-  
-  // this.renderGrid = this.renderGrid.bind(this);
   }
 
 
@@ -24,13 +22,6 @@ class Content extends React.Component{
 
 
   return data;
-  // fetch('https://raw.githubusercontent.com/crijumubu/NoticiasKabar/artificial-intelligence/news/news.json')
-  // .then(res => res.json())
-  // .then((data) => {
-  //     this.setState({news: data})
-  //     console.log(this.state.news)
-  // } );
-
   }    
 
   componentDidMount(){
@@ -63,9 +54,6 @@ class Content extends React.Component{
   )
   }
 }
-// function Content(props){
-  
-// }
 
 function New({Url, Image, Title, Descripcion , Category, Fuente, Id}){
   return(
@@ -74,7 +62,7 @@ function New({Url, Image, Title, Descripcion , Category, Fuente, Id}){
     <div id="news-info" className="news-info">
 
       <h2>{Title}</h2>
-      <h4>{Fuente}</h4>
+      <h4>Fuente: <b>{Fuente}</b></h4>
       <h3><h3 className="category">{Category} <i class="bi  bi-tag-fill catIcon"></i></h3></h3>
       {/* <p>{Descripcion}</p> */}
       <div className="info"></div>
