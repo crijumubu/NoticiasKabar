@@ -6,7 +6,8 @@ class newsSpider(scrapy.Spider):
     
     name = 'news'
 
-    start_urls = ['https://www.eltiempo.com/', 'https://www.elespectador.com/', 'https://www.elnuevosiglo.com.co/', 'https://www.portafolio.co/']
+    start_urls = ['https://www.elnuevosiglo.com.co/']
+    #start_urls = ['https://www.eltiempo.com/', 'https://www.elespectador.com/', 'https://www.elnuevosiglo.com.co/', 'https://www.portafolio.co/']
 
     headersElEspectador = {
         "authority": "www.elespectador.com",
@@ -219,7 +220,7 @@ class newsSpider(scrapy.Spider):
 
             description = response.xpath(xpath).get()
 
-            image = response.xpath("//div[@class='multimedia']/img/@src").get().replace('//','').split("?")
+            image = response.xpath("//div[@class='multimedia']/img/@src").get().replace('//','').replace(' ','%20').split("?")
 
             yield {
                 'Title' : response.xpath("//span[@class='field field--name-title field--type-string field--label-hidden']/text()").get(),
