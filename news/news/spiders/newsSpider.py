@@ -219,7 +219,7 @@ class newsSpider(scrapy.Spider):
 
             description = response.xpath(xpath).get()
 
-            image = response.xpath("//div[@class='multimedia']/img/@src").get().replace('//','').replace(' ','%20').split("?")
+            image = 'https://' + response.xpath("//div[@class='multimedia']/img/@src").get().replace('//','').replace(' ','%20').split("?")
 
             yield {
                 'Title' : response.xpath("//span[@class='field field--name-title field--type-string field--label-hidden']/text()").get(),
