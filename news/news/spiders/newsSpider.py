@@ -6,7 +6,7 @@ class newsSpider(scrapy.Spider):
     
     name = 'news'
 
-    start_urls = ['https://www.elnuevosiglo.com.co/']
+    start_urls = ['https://www.eltiempo.com/', 'https://www.elespectador.com/', 'https://www.elnuevosiglo.com.co/', 'https://www.portafolio.co/']
 
     headersElEspectador = {
         "authority": "www.elespectador.com",
