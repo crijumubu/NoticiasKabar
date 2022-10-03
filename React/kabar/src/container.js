@@ -1,69 +1,95 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
+// import ReactDOM from "react-dom/client";
+import Scroll from "./scroll";
 import "./container.css";
 
 
 class Content extends React.Component{
   constructor(props){
-  super(props);
-  this.state = {
-  news: [],
-  }
+    super(props);
+    this.state = {
+      news: [],
+      page: 1,
+    }
 
-  this.fetchApi = this.fetchApi.bind(this);
+    this.fetchApi = this.fetchApi.bind(this);
   }
 
 
   async fetchApi(){
-  const response = await fetch('https://raw.githubusercontent.com/crijumubu/NoticiasKabar/artificial-intelligence/news/news.json');
-  const data = await response.json();
-  this.setState({news: data})
+    const response = await fetch('https://raw.githubusercontent.com/crijumubu/NoticiasKabar/artificial-intelligence/news/news.json');
+    const data = await response.json();
+    this.setState({news: data})
 
-
-
-  return data;
+    return data;
   }    
 
   componentDidMount(){
-  this.fetchApi(this.renderGrid);
+    this.fetchApi(this.renderGrid);
   }
+  
   
 
   render(){
 
-  const data = this.state.news.slice(0,50);
-  let temp = [];
+    const data = this.state.news.slice(0,20);
+    let temp = [];
 
-  console.log(data);
-  return(
-  <>
-  <div className="content">
-  {
-    data.map((e,ind)=>{
-	    temp = data.slice(ind*5,(ind+1)*5)
-      try {
-        return Grid(temp);
-      } catch (error) {
-        console.log(error)
-        return <></>;
+    console.log(data);
+    return(
+    <>
+
+      <div className="content">
+      {
+        data.map((e,ind)=>{
+	        temp = data.slice(ind*5,(ind+1)*5)
+          try {
+            return Grid(temp);
+          } catch (error) {
+            // console.log(error)
+            return <></>;
+          }
+      })
       }
-  })
-  }
-  </div>            
-  </>
-  )
+      </div>
+      <Scroll></Scroll>
+    </>
+    )
   }
 }
 
-function New({Url, Image, Title, Descripcion , Category, Fuente, Id}){
+// TODO Trabajar en RenderContent, para pasarle la funcion OnScroll
+
+// function RenderContent(){
+//   const listInnerRef = useRef();
+
+//   const onScroll = () => {
+//     if (listInnerRef.current) {
+//       const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
+//       if (scrollTop + clientHeight === scrollHeight) {
+//         console.log("reached bottom");
+//       }
+//     }
+//   };
+
+//   return(
+//     <>
+//       <Content onScroll={onScroll} ></Content>
+//     </>)
+// }
+
+
+
+
+function New({Url, Image, Title, Descripcion , Category, Fuente, Id, Bigger = ""}){
   return(
-  <a href={Url} className="news" key={Id}>
+  <a href={Url} className={`news ${Bigger}`} key={Id} target="_blank" rel="noreferrer">
     <img src={Image} alt="No img"></img>
     <div id="news-info" className="news-info">
 
       <h2>{Title}</h2>
       <h4>Fuente: <b>{Fuente}</b></h4>
-      <h3><h3 className="category">{Category} <i class="bi  bi-tag-fill catIcon"></i></h3></h3>
+      <h3><span className="category">{Category} <i className="bi  bi-tag-fill catIcon"></i></span></h3>
       {/* <p>{Descripcion}</p> */}
       <div className="info"></div>
     </div>
@@ -86,7 +112,7 @@ function Grid(arr){
 
       <New Url={arr[3].Url} Image={arr[3].Image} Title={arr[3].Title} Descripcion={arr[3].Descripcion} Category={arr[3].Category} Fuente={arr[3].Fuente} Id="3"></New>
 
-      <New Url={arr[4].Url} Image={arr[4].Image} Title={arr[4].Title} Descripcion={arr[4].Descripcion} Category={arr[4].Category} Fuente={arr[4].Fuente} Id="4"></New>
+      <New Url={arr[4].Url} Image={arr[4].Image} Title={arr[4].Title} Descripcion={arr[4].Descripcion} Category={arr[4].Category} Fuente={arr[4].Fuente} Id="4" Bigger="big"></New>
 
   </div>
 
@@ -94,6 +120,8 @@ function Grid(arr){
   )
 }
 
-
+// function BtnTop(){
+  
+// }
 
 export default Content;

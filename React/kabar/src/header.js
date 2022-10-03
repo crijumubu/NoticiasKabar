@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
+// import ReactDOM from "react-dom/client";
 import "./header.css";
 
 function Header () {
@@ -36,14 +36,22 @@ function SubmitBtn(){
     )
 }
 
-function Link({icon,linkText, goTo ="#"}){
-  return (
-    <a href={goTo} className="link-side">
-        <i className={`${icon} icon`}>
-            <p>{linkText}</p>
-        </i>
-    </a>
-  );
-}
+// function Filter(){
+//   return(
+//   <>
+//     <button>
+//       <i class="bi bi-funnel"></i>
+//     </button>
+//   </>)
+// }
+// function Link({icon,linkText, goTo ="#"}){
+//   return (
+//     <a href={goTo} className="link-side">
+//         <i className={`${icon} icon`}>
+//             <p>{linkText}</p>
+//         </i>
+//     </a>
+//   );
+// }
 
 export default Header;
