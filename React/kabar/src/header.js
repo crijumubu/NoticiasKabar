@@ -36,14 +36,14 @@ function SubmitBtn(){
     )
 }
 
-// function Filter(){
-//   return(
-//   <>
-//     <button>
-//       <i class="bi bi-funnel"></i>
-//     </button>
-//   </>)
-// }
+function Filter(){
+  return(
+  <>
+    <button>
+      <i class="bi bi-funnel"></i>
+    </button>
+  </>)
+}
 // function Link({icon,linkText, goTo ="#"}){
 //   return (
 //     <a href={goTo} className="link-side">
