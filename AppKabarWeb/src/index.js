@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const path = require('path');
 require("dotenv").config();
 const mongoose = require('mongoose');
+const{swaggerDocs:v1swagger}=require('./swagger')
 
 // /////////////////////////////////////////////configuraciones////////////////////////////////////////////////////////////////////////
 
@@ -27,4 +28,5 @@ console.log(path.join(__dirname + '/public'));
 /////////////////////////////////////////////iniciacion server///////////////////////////////////////////////////////////////////////
 app.listen(app.get('port'), () => { 
     console.log('server en puerto: '+app.get('port')); 
+    v1swagger(app,3000);
 });

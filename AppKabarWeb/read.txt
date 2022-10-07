@@ -15,3 +15,5 @@ env
 dotenv
 /// recordar instalar mongoose
 /// recordar crear archivo .env con la uri compartida en teams
+/// documentacion swagger
+// npm i swagger-jsdoc swagger-ui-express
