@@ -6,7 +6,7 @@ class newsSpider(scrapy.Spider):
     
     name = 'news'
 
-    start_urls = ['https://www.eltiempo.com/', 'https://www.elespectador.com/', 'https://www.elnuevosiglo.com.co/', 'https://www.portafolio.co/']
+    start_urls = ['https://www.eltiempo.com/', 'https://www.elespectador.com/', 'https://www.elnuevosiglo.com.co/', 'http://www.publimetro.co/', 'https://www.portafolio.co/']
 
     headersElEspectador = {
         "authority": "www.elespectador.com",
@@ -47,14 +47,6 @@ class newsSpider(scrapy.Spider):
 
                 yield scrapy.Request(url, callback=self.parseAPIElEspectador, headers=self.headersElEspectador)
 
-        elif (originalUrl == 'https://www.portafolio.co/'):
-
-            for productsLink in response.xpath("//a[@class='page-link']"):
-
-                url = urljoin(response.url, productsLink.xpath('.//@href').get())
-
-                yield scrapy.Request(url, callback=self.parseElPortafolio)
-
         elif (originalUrl == 'https://www.elnuevosiglo.com.co/'):
 
             for productsLink in response.xpath("//div['text-node']/a"):
@@ -65,7 +57,22 @@ class newsSpider(scrapy.Spider):
                     
                     yield scrapy.Request(url, callback=self.parseElNuevoSiglo)
 
-                
+        elif (originalUrl == 'https://www.publimetro.co/'):
+
+            for productsLink in response.xpath("//h2[@class='primary-font__PrimaryFontStyles-o56yd5-0 ctbcAa sm-promo-headline']/a"):
+
+                url = urljoin(response.url, productsLink.xpath('.//@href').get())
+
+                yield scrapy.Request(url, callback=self.parseElPublimetro)
+
+        elif (originalUrl == 'https://www.portafolio.co/'):
+
+            for productsLink in response.xpath("//a[@class='page-link']"):
+
+                url = urljoin(response.url, productsLink.xpath('.//@href').get())
+
+                yield scrapy.Request(url, callback=self.parseElPortafolio)
+
     def parseElTiempo(self, response):
 
         try:
@@ -96,6 +103,10 @@ class newsSpider(scrapy.Spider):
 
                         title = response.xpath("//h1[@class='title ']/text()").get()
 
+                        if title == None:
+
+                            return
+
             if (description == None):
 
                 description = response.xpath("//h2[@class='article-epigraph']/text()").get()
@@ -107,6 +118,10 @@ class newsSpider(scrapy.Spider):
                     if (description == None):
 
                         description = response.xpath("//p[@class='epigraph ']/text()").get()
+
+                        if (description == None):
+
+                            return
 
             category = response.xpath("//span[@class='span-following']/text()").get()
 
@@ -230,6 +245,40 @@ class newsSpider(scrapy.Spider):
                 'Fuente' : 'El nuevo siglo'
             }
 
+        except:
+
+            return
+
+    def parseElPublimetro(self, response):
+        
+        try:
+
+            title = response.xpath("//h1[@class='primary-font__PrimaryFontStyles-o56yd5-0 ctbcAa headline']/text()").get()
+
+            if (title == None):
+
+                return
+
+            description = response.xpath("//h2[@class='primary-font__PrimaryFontStyles-o56yd5-0 ctbcAa h4-primary sub-headline']/text()").get()
+
+            if (description == None):
+
+                return
+            
+            img = response.xpath("//picture[@class='Image__StyledPicture-sc-8yioqf-0 iKCNis']/img/@src").get()
+
+            if (img == None):
+
+                return
+
+            yield{
+                    'Title' : title,
+                    'Descripcion' : description,
+                    'Category' : response.xpath("//a[@class='primary-font__PrimaryFontStyles-o56yd5-0 ctbcAa overline overline--link']/text()").get(),
+                    'Image' : img,
+                    'Url' : response.url,
+                    'Fuente' : 'Publimetro'
+                }
         except:
 
             return
