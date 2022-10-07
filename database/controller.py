@@ -34,9 +34,10 @@ class controller:
 
                 self.mongo.insert(news, False)
 
-    def clearDatabase(self):
+    def close(self):
 
-        self.mongo.delete()
+        self.mongo.client.close()
 
 control = controller()
 control.insertWithoutRepeating()
+control.close()

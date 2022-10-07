@@ -20,10 +20,6 @@ class mongo:
 
             self.collection.insert_one(collection)
 
-    def count(self):
-
-        return self.collection.count_documents({})
-
     @dispatch()
     def select(self):
 
