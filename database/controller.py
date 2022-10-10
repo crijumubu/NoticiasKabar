@@ -18,11 +18,11 @@ class controller:
     
     def countElements(self):
 
-        return len(self.mongo.select())
+        return len(self.mongo.selectAll())
 
     def insert(self):
 
-        self.mongo.insert(self.newsCollection)
+        self.mongo.insert(self.newsCollection, True)
 
     def insertWithoutRepeating(self):
         
@@ -30,7 +30,7 @@ class controller:
 
             newsTitle = news['Title']
 
-            if (self.mongo.select(newsTitle) == None):
+            if (self.mongo.selectEspecific(newsTitle) == None):
 
                 self.mongo.insert(news, False)
 

@@ -1,12 +1,12 @@
-from matplotlib.collections import Collection
 from pymongo import MongoClient
-from multipledispatch import dispatch
+from credentials import credentials
 
 class mongo:
 
     def __init__(self):
 
-        self.client = MongoClient('mongodb+srv://KabarDBA:KabarDBA312@cluster0.50a4eap.mongodb.net/retryWrites=true&w=majority')
+        self.credential = credentials()
+        self.client = MongoClient(self.credential.getCrendential())
         self.database = self.client.get_database('test')
         self.collection = self.database['modelnoticias']
 
@@ -20,22 +20,18 @@ class mongo:
 
             self.collection.insert_one(collection)
 
-    @dispatch()
-    def select(self):
+    def selectAll(self):
 
         return list(self.collection.find())
 
-    @dispatch(str)
-    def select(self, title):
+    def selectEspecific(self, title):
 
         return self.collection.find_one({'Title' : title})
 
-    @dispatch()
-    def delete(self):
+    def deleteAll(self):
 
         self.collection.delete_many({})
 
-    @dispatch(str)
-    def delete(self, title):
+    def deleteEspecific(self, title):
 
         self.collection.delete_one({'Title' : title})
