@@ -91,6 +91,7 @@ function New({Url, Image, Title, Descripcion , Category, Fuente, Id, Bigger = ""
       <h4>Fuente: <b>{Fuente}</b></h4>
       <h3><span className="category">{Category} <i className="bi  bi-tag-fill catIcon"></i></span></h3>
       {/* <p>{Descripcion}</p> */}
+      <h4><b> Fecha de extraccion:</b> 12/08/2022</h4>
       <div className="info"></div>
     </div>
   </a>
