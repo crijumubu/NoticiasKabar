@@ -1,5 +1,3 @@
-from cmath import cos
-import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from news import news
@@ -26,13 +24,14 @@ class artificalIntelligence:
         for new in self.getNews():
             
             title = new['Title']
-            description = new['Descripcion']
+            description = new['Description']
             url = new['Url']
+            date = new['Date']
 
             titleTokenization = word_tokenize(new['Title'].lower())
             titleCorrelation = self.wordSimilarity(phraseTokenization, titleTokenization)
 
-            descriptionTokenization = word_tokenize(new['Descripcion'].lower())
+            descriptionTokenization = word_tokenize(new['Description'].lower())
             descriptionCorrelation = self.wordSimilarity(phraseTokenization, descriptionTokenization)
 
             if titleCorrelation > descriptionCorrelation:
@@ -42,7 +41,7 @@ class artificalIntelligence:
 
                 correlation = descriptionCorrelation
 
-            self.similarityVector.append(news(title, description, correlation, url)) # type: ignore
+            self.similarityVector.append(news(title, description, url, date, correlation)) # type: ignore
 
         self.topSimilarities()
 
@@ -72,13 +71,18 @@ class artificalIntelligence:
 
     def topSimilarities(self):
 
-        
         self.similarityVector.sort(key=lambda news: news.similarity, reverse = True)
 
-        for i in range(0,10):
+        interestNews = self.similarityVector[0:10]
+        
+        interestNews.sort(key=lambda news: news.date)
+
+        cont = 0
+        for news in interestNews:
             
-            print('\nNoticia ' + str(i+1) + ':\n\n\t' + self.similarityVector[i].toString() + '\n')
+            cont += 1
+            print('\nNoticia ' + str(cont) + ':\n\n\t' + news.toString() + '\n')
         
 
 IAobject = artificalIntelligence();
-IAobject.checkSimilarity('Colombia')
+IAobject.checkSimilarity('deporte')
