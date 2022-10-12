@@ -1,5 +1,6 @@
 import json
 import scrapy
+from datetime import date
 from urllib.parse import urljoin
 
 class newsSpider(scrapy.Spider):
@@ -131,11 +132,12 @@ class newsSpider(scrapy.Spider):
 
             yield {
                 'Title' : title,
-                'Descripcion' : description,
+                'Description' : description,
                 'Category' : category,
                 'Image' : urljoin(response.url, imgDir),
                 'Url' : response.url,
-                'Fuente' : 'El tiempo'
+                'Source' : 'El tiempo',
+                'Date' : date.today()
             }
 
         except:
@@ -171,11 +173,12 @@ class newsSpider(scrapy.Spider):
 
             yield {
                 'Title' : response.xpath("//h1[@class='Title ArticleHeader-Title Title_article']/text()").get(),
-                'Descripcion' : description,
+                'Description' : description,
                 'Category' : response.xpath("//span[@class='Breadcrumb-Text']/a/text()").get(),
                 'Image' : response.xpath("//img[@class='ImageArticle-Image']/@src").get(),
                 'Url' : response.url,
-                'Fuente' : 'El espectador',
+                'Source' : 'El espectador',
+                'Date' : date.today()
             }
 
         except:
@@ -211,11 +214,12 @@ class newsSpider(scrapy.Spider):
 
             yield {
                 'Title' : title,
-                'Descripcion' : description,
+                'Description' : description,
                 'Category' : " ".join(response.xpath("//a[@class='logoSection']/text()").get().split()),
                 'Image' : urljoin(response.url, imgDir),
                 'Url' : response.url,
-                'Fuente' : 'Portafolio'
+                'Source' : 'Portafolio',
+                'Date' : date.today()
             }
 
         except:
@@ -238,11 +242,12 @@ class newsSpider(scrapy.Spider):
 
             yield {
                 'Title' : response.xpath("//span[@class='field field--name-title field--type-string field--label-hidden']/text()").get(),
-                'Descripcion' : description,
+                'Description' : description,
                 'Category' : response.xpath("//div[@class='container']/h3/text()").get(),
                 'Image' : 'https://' + image[0],
                 'Url' : response.url,
-                'Fuente' : 'El nuevo siglo'
+                'Source' : 'El nuevo siglo',
+                'Date' : date.today()
             }
 
         except:
@@ -273,11 +278,12 @@ class newsSpider(scrapy.Spider):
 
             yield{
                     'Title' : title,
-                    'Descripcion' : description,
+                    'Description' : description,
                     'Category' : response.xpath("//a[@class='primary-font__PrimaryFontStyles-o56yd5-0 ctbcAa overline overline--link']/text()").get(),
                     'Image' : img,
                     'Url' : response.url,
-                    'Fuente' : 'Publimetro'
+                    'Source' : 'Publimetro',
+                    'Date' : date.today()
                 }
         except:
 
