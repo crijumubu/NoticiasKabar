@@ -1,6 +1,8 @@
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from news import news
+import sys 
+sys.path.append('/home/cristian/Documents/Personal/Universidad/2.6 Sexto semestre/Proyecto integrador II/Development/Implemenation/database')
 from connection import mongo
 
 class artificalIntelligence:
@@ -75,7 +77,7 @@ class artificalIntelligence:
 
         interestNews = self.similarityVector[0:10]
         
-        interestNews.sort(key=lambda news: news.date)
+        interestNews.sort(key=lambda news: news.date, reverse = True)
 
         cont = 0
         for news in interestNews:
@@ -85,4 +87,4 @@ class artificalIntelligence:
         
 
 IAobject = artificalIntelligence();
-IAobject.checkSimilarity('deporte')
+IAobject.checkSimilarity('Colombia')
