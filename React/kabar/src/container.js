@@ -92,7 +92,10 @@ class Content extends React.Component{
         this.state.newsRender.map((e,ind)=>{
 	        temp = this.state.newsRender.slice(ind*5,(ind+1)*5)
           try {
-            return Grid(temp);
+            if(temp.length !== 0){
+              return Grid(temp);
+            }
+            return <></>
           } catch (error) {
             // console.log(error)
             return <></>;
@@ -106,27 +109,6 @@ class Content extends React.Component{
     )
   }
 }
-
-// TODO Trabajar en RenderContent, para pasarle la funcion OnScroll
-
-// function RenderContent(){
-//   const listInnerRef = useRef();
-
-//   const onScroll = () => {
-//     if (listInnerRef.current) {
-//       const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
-//       if (scrollTop + clientHeight === scrollHeight) {
-//         console.log("reached bottom");
-//       }
-//     }
-//   };
-
-//   return(
-//     <>
-//       <Content onScroll={onScroll} ></Content>
-//     </>)
-// }
-
 
 
 
@@ -153,18 +135,20 @@ function Grid(arr){
 	<>
 	  <div className="grid-2">
 
+      {arr[0] ? <New Url={arr[0].Url} Image={arr[0].Image} Title={arr[0].Title} Descripcion={arr[0].Descripcion} Category={arr[0].Category} Source={arr[0].Source} Date={arr[0].Date} Id="0"></New> : <></>}
       
-      <New Url={arr[0].Url} Image={arr[0].Image} Title={arr[0].Title} Descripcion={arr[0].Descripcion} Category={arr[0].Category} Source={arr[0].Source} Date={arr[0].Date} Id="0"></New>
-
-      <New Url={arr[1].Url} Image={arr[1].Image} Title={arr[1].Title} Descripcion={arr[1].Descripcion} Category={arr[1].Category} Source={arr[1].Source} Date={arr[1].Date} Id="1"></New>
+      {arr[1] ? <New Url={arr[1].Url} Image={arr[1].Image} Title={arr[1].Title} Descripcion={arr[1].Descripcion} Category={arr[1].Category} Source={arr[1].Source} Date={arr[1].Date} Id="1"></New> : <></>}
+      
   </div>
 
   <div className="grid-3">
-      <New Url={arr[2].Url} Image={arr[2].Image} Title={arr[2].Title} Descripcion={arr[2].Descripcion} Category={arr[2].Category} Source={arr[2].Source} Date={arr[2].Date} Id="2"></New>
+      {arr[2] ? <New Url={arr[2].Url} Image={arr[2].Image} Title={arr[2].Title} Descripcion={arr[2].Descripcion} Category={arr[2].Category} Source={arr[2].Source} Date={arr[2].Date} Id="2"></New> : <></>}
+      
 
-      <New Url={arr[3].Url} Image={arr[3].Image} Title={arr[3].Title} Descripcion={arr[3].Descripcion} Category={arr[3].Category} Source={arr[3].Source} Date={arr[3].Date} Id="3"></New>
-
-      <New Url={arr[4].Url} Image={arr[4].Image} Title={arr[4].Title} Descripcion={arr[4].Descripcion} Category={arr[4].Category} Source={arr[4].Source} Date={arr[4].Date} Id="4" Bigger="big"></New>
+      {arr[3] ? <New Url={arr[3].Url} Image={arr[3].Image} Title={arr[3].Title} Descripcion={arr[3].Descripcion} Category={arr[3].Category} Source={arr[3].Source} Date={arr[3].Date} Id="3"></New> : <></>}
+      
+      {arr[4] ? <New Url={arr[4].Url} Image={arr[4].Image} Title={arr[4].Title} Descripcion={arr[4].Descripcion} Category={arr[4].Category} Source={arr[4].Source} Date={arr[4].Date} Id="4" Bigger="big"></New> : <></>}
+      
 
   </div>
 
