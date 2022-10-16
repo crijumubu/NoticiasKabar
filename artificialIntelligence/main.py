@@ -1,6 +1,5 @@
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
-from news import news
 import sys 
 sys.path.append('/home/cristian/Documents/Personal/Universidad/2.6 Sexto semestre/Proyecto integrador II/Development/Implemenation/database')
 from connection import mongo
@@ -9,43 +8,65 @@ class artificalIntelligence:
 
     def __init__(self):
 
-        self.getNews()
+        self.connection = mongo()
+        self.checkSimilarity()
     
-    def getNews(self):
+    def getNewsWithoutCategory(self):
 
-        connection = mongo()
-        data = connection.selectAll()
-
+        data = self.connection.selectEspecificByCategory('')
         return data
 
-    def checkSimilarity(self, phrase):
+    def checkSimilarity(self):
 
-        self.similarityVector = []
-        phraseTokenization = word_tokenize(phrase.lower())
+        categoriesIndex = ['Deportes', 'Judicial', 'Política', 'Unidad investigativa', 'Colombia', 'Economía', 'Tecnología', 'Ciencia', 'Salud', 'Educación', 'Entretenimiento']
+        
+        categories = [['Deporte', 'Fútbol', 'Fitness', 'Ejercicio', 'Gol', 'Campeón', 'Vencer', 'Juego', 'Copa', 'Jugador', 'Clasificación', 'Cuadrangular'], ['Corrupción', 'Escándalo', 'Fiscalía', 'Contrato', 'Audiencia', 'Mafia', 'Ley', 'Corte', 'Proceso', 'Muerte', 'Irregularidad', 'Juez'], ['Presidente', 'Vicepresidente', 'Alcalde', 'Gobernador', 'Electoral', 'Director', 'Congreso', 'Reforma', 'Senado', 'Embajador', 'Ministro', 'Partido'], ['Investigación', 'Escándalo', 'Denuncia', 'Presunto', 'Estudio', 'Corrupción', 'Testigo', 'Indagación', 'Capturado', 'Proceso', 'Confesión', 'Muertos'], ['Colombia', 'Bogotá', 'Medellín', 'Cali', 'Bucaramanga', 'Barranquilla', 'Cartagena', 'Región', 'Municipio', 'Departamento', 'Caribe', 'Pacífico'], ['Economía', 'Finanzas', 'Banco', 'Interés', 'Dolar', 'Petróleo', 'Inversión', 'Crédito', 'Inflación', 'Comercio', 'Ahorro', 'Precio'], ['Tecnología', 'TikTok', 'Instagram', 'Facebook', 'Twitter', 'WhatsApp', 'Meta', 'Teléfono', 'Computador', 'Google', 'iPhone', 'App'], ['Ciencia', 'Nasa', 'Científico', 'ADN', 'Extinción', 'Astrónomo', 'Luna', 'Espacial', 'Atómico', 'Astronauta', 'Telescopio', 'Descubrir'], ['Salud', 'Organo', 'Paciente', 'Obesidad', 'Sangre', 'Enfermedad', 'OMS', 'OPS', 'Brote', 'Vacuna', 'Bacteria', 'Viruela'], ['Educación', 'Beca', 'Universidad', 'Estudiar', 'Examen', 'Icetex', 'Curso', 'Libro', 'Colegio', 'Escuela', 'Enseñanza', 'Aprendizaje'], ['Entretenimiento', 'Actriz', 'Actor', 'Álbum', 'Canción', 'Película', 'Música', 'Series', 'Televisión', 'Cantante', 'Redes', 'Farándula']]
 
-        for new in self.getNews():
+        for new in self.getNewsWithoutCategory():
             
+            categoriesSimilarity = []
+
             title = new['Title']
             description = new['Description']
-            url = new['Url']
-            date = new['Date']
 
-            titleTokenization = word_tokenize(new['Title'].lower())
-            titleCorrelation = self.wordSimilarity(phraseTokenization, titleTokenization)
+            titleTokenization = word_tokenize(title.lower())
+            descriptionTokenization = word_tokenize(description.lower())
 
-            descriptionTokenization = word_tokenize(new['Description'].lower())
-            descriptionCorrelation = self.wordSimilarity(phraseTokenization, descriptionTokenization)
+            for category in categories:
+                
+                categorySimilarityCont = 0
+                
+                for subcategory in category:
 
-            if titleCorrelation > descriptionCorrelation:
+                    subcategoryTokenization = word_tokenize(subcategory.lower())
 
-                correlation = titleCorrelation
+                    titleCorrelation = self.wordSimilarity(subcategoryTokenization, titleTokenization)        
+                    descriptionCorrelation = self.wordSimilarity(subcategoryTokenization, descriptionTokenization)
+
+                    if titleCorrelation > descriptionCorrelation:
+
+                        correlation = titleCorrelation
+                    else:
+
+                        correlation = descriptionCorrelation
+
+                    categorySimilarityCont += correlation
+                
+                categoriesSimilarity.append(categorySimilarityCont)
+
+            maxCorrelation = max(categoriesSimilarity)
+            category = ''
+
+            if (maxCorrelation != 0):
+
+                categoryIndex = categoriesSimilarity.index(maxCorrelation)
+                category = categoriesIndex[categoryIndex]
+
             else:
 
-                correlation = descriptionCorrelation
+                category = 'Otros'
 
-            self.similarityVector.append(news(title, description, url, date, correlation)) # type: ignore
-
-        self.topSimilarities()
+            self.connection.updateEspecific(title, category)
 
     def wordSimilarity(self, phraseTokenization, newsWordTokenization):
 
@@ -71,20 +92,4 @@ class artificalIntelligence:
 
         return cosine
 
-    def topSimilarities(self):
-
-        self.similarityVector.sort(key=lambda news: news.similarity, reverse = True)
-
-        interestNews = self.similarityVector[0:10]
-        
-        interestNews.sort(key=lambda news: news.date, reverse = True)
-
-        cont = 0
-        for news in interestNews:
-            
-            cont += 1
-            print('\nNoticia ' + str(cont) + ':\n\n\t' + news.toString() + '\n')
-        
-
 IAobject = artificalIntelligence();
-IAobject.checkSimilarity('Colombia')

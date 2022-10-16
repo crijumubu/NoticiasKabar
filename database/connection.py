@@ -24,9 +24,25 @@ class mongo:
 
         return list(self.collection.find())
 
-    def selectEspecific(self, title):
+    def selectEspecificByTitle(self, title):
 
         return self.collection.find_one({'Title' : title})
+
+    def selectEspecificByCategory(self, category):
+
+        return list(self.collection.find({'Category' : category}))
+
+    def updateEspecific(self, title, category):
+
+        self.collection.update_one({'Title' : title}, {'$set' : {'Category' : category}})
+
+    '''
+    Method for testing
+    
+    def updateAll(self):
+
+        self.collection.update_many({}, {'$set' : {'Category' : ''}})
+    '''
 
     def deleteAll(self):
 
