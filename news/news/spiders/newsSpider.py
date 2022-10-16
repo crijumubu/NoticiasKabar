@@ -124,8 +124,6 @@ class newsSpider(scrapy.Spider):
 
                             return
 
-            category = response.xpath("//span[@class='span-following']/text()").get()
-
             if (category == None):
 
                 category = 'Opinión'
@@ -133,7 +131,7 @@ class newsSpider(scrapy.Spider):
             yield {
                 'Title' : title,
                 'Description' : description,
-                'Category' : category,
+                'Category' : '',
                 'Image' : urljoin(response.url, imgDir),
                 'Url' : response.url,
                 'Source' : 'El tiempo',
@@ -174,7 +172,7 @@ class newsSpider(scrapy.Spider):
             yield {
                 'Title' : response.xpath("//h1[@class='Title ArticleHeader-Title Title_article']/text()").get(),
                 'Description' : description,
-                'Category' : response.xpath("//span[@class='Breadcrumb-Text']/a/text()").get(),
+                'Category' : '',
                 'Image' : response.xpath("//img[@class='ImageArticle-Image']/@src").get(),
                 'Url' : response.url,
                 'Source' : 'El espectador',
@@ -215,7 +213,7 @@ class newsSpider(scrapy.Spider):
             yield {
                 'Title' : title,
                 'Description' : description,
-                'Category' : " ".join(response.xpath("//a[@class='logoSection']/text()").get().split()),
+                'Category' : '',
                 'Image' : urljoin(response.url, imgDir),
                 'Url' : response.url,
                 'Source' : 'Portafolio',
@@ -243,7 +241,7 @@ class newsSpider(scrapy.Spider):
             yield {
                 'Title' : response.xpath("//span[@class='field field--name-title field--type-string field--label-hidden']/text()").get(),
                 'Description' : description,
-                'Category' : response.xpath("//div[@class='container']/h3/text()").get(),
+                'Category' : '',
                 'Image' : 'https://' + image[0],
                 'Url' : response.url,
                 'Source' : 'El nuevo siglo',
@@ -279,7 +277,7 @@ class newsSpider(scrapy.Spider):
             yield{
                     'Title' : title,
                     'Description' : description,
-                    'Category' : response.xpath("//a[@class='primary-font__PrimaryFontStyles-o56yd5-0 ctbcAa overline overline--link']/text()").get(),
+                    'Category' : '',
                     'Image' : img,
                     'Url' : response.url,
                     'Source' : 'Publimetro',
