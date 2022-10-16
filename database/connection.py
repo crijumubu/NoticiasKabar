@@ -1,5 +1,6 @@
 from pymongo import MongoClient
 from credentials import credentials
+from bson.json_util import dumps
 
 class mongo:
 
@@ -51,3 +52,14 @@ class mongo:
     def deleteEspecific(self, title):
 
         self.collection.delete_one({'Title' : title})
+
+    def extractJson(self):
+
+        cursor = self.selectAll()
+        with open('news.json', 'w') as file:
+            file.write('[')
+            for i in range (0, len(cursor)):
+                file.write(dumps(cursor[i]))
+                if (i + 1 != len(cursor)):
+                    file.write(',\n')
+            file.write(']')

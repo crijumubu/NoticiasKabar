@@ -30,7 +30,7 @@ class controller:
 
             newsTitle = news['Title']
 
-            if (self.mongo.selectEspecific(newsTitle) == None):
+            if (self.mongo.selectEspecificByTitle(newsTitle) == None):
 
                 self.mongo.insert(news, False)
 
@@ -39,5 +39,6 @@ class controller:
         self.mongo.client.close()
 
 control = controller()
-control.insertWithoutRepeating()
+control.mongo.extractJson()
+#control.insertWithoutRepeating()
 control.close()
