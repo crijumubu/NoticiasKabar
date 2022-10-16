@@ -2,7 +2,23 @@ import React from "react";
 // import ReactDOM from "react-dom/client";
 import "./header.css";
 
-function Header () {
+class Header extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = {value:''}
+
+    // this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  //
+  
+
+  handleChange = (e)=>{
+    this.setState({value:e.target.value})
+  }
+
+  render(){
     return (
       <header>
         <div className="header-container">
@@ -15,17 +31,18 @@ function Header () {
           <Link icon="bi bi-funnel" linkText="Kabar" ></Link>
         </nav> */}
         <div className="search">
-          <form>
-            <SearchBar holdTxt="¿Que desea buscar?" />
+          <form onSubmit={this.props.submitEvent}>
+            <SearchBar holdTxt="¿Qué desea buscar?" change={this.handleChange} valueS={this.state.value}  />
             <SubmitBtn />
           </form>
         </div>
       </header>
     );  
+  }
 }
 
-function SearchBar({holdTxt}) {
-  return <input type="search" className="search-inp" placeholder={holdTxt}></input>;
+function SearchBar({holdTxt, valueS,change}) {
+  return <input type="search" className="search-inp" placeholder={holdTxt} value={valueS} onChange={change} id="searchInput"></input>;
 }
 
 function SubmitBtn(){
