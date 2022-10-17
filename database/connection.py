@@ -36,14 +36,10 @@ class mongo:
     def updateEspecific(self, title, category):
 
         self.collection.update_one({'Title' : title}, {'$set' : {'Category' : category}})
-
-    '''
-    Method for testing
     
     def updateAll(self):
 
         self.collection.update_many({}, {'$set' : {'Category' : ''}})
-    '''
 
     def deleteAll(self):
 
@@ -52,6 +48,10 @@ class mongo:
     def deleteEspecific(self, title):
 
         self.collection.delete_one({'Title' : title})
+
+    def deleteBySource(self, source):
+
+        self.collection.delete_many({'Source' : source})
 
     def extractJson(self):
 

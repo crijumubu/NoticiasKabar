@@ -236,13 +236,16 @@ class newsSpider(scrapy.Spider):
 
         try:
             
+            '''
             xpath = "//div[@class='clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item']/p[1]"
 
             while response.xpath(xpath + '/node()') != []:
 
                 xpath += '/node()'
-
+            
             description = response.xpath(xpath).get()
+            '''
+            description = response.xpath("string(//p)").get()
 
             image = response.xpath("//div[@class='multimedia']/img/@src").get().replace('//','').replace(' ','%20').split("?")
 
