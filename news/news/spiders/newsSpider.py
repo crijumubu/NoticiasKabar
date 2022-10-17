@@ -7,7 +7,7 @@ class newsSpider(scrapy.Spider):
     
     name = 'news'
 
-    start_urls = ['https://www.eltiempo.com/', 'https://www.elespectador.com/', 'https://www.elnuevosiglo.com.co/', 'http://www.publimetro.co/', 'https://www.portafolio.co/']
+    start_urls = ['https://www.eltiempo.com/', 'https://www.elespectador.com/', 'https://www.elnuevosiglo.com.co/', 'http://www.publimetro.co/', 'https://www.portafolio.co/', 'https://www.diarioadn.co/']
 
     headersElEspectador = {
         "authority": "www.elespectador.com",
@@ -73,6 +73,14 @@ class newsSpider(scrapy.Spider):
                 url = urljoin(response.url, productsLink.xpath('.//@href').get())
 
                 yield scrapy.Request(url, callback=self.parseElPortafolio)
+
+        elif (originalUrl == 'https://www.diarioadn.co/'):
+
+            for productsLink in response.xpath("//li[@class='notice-item']/a"):
+
+                url = urljoin(response.url, productsLink.xpath('.//@href').get())
+
+                yield scrapy.Request(url, callback=self.parseElADN)
 
     def parseElTiempo(self, response):
 
@@ -283,6 +291,24 @@ class newsSpider(scrapy.Spider):
                     'Source' : 'Publimetro',
                     'Date' : date.today()
                 }
+        except:
+
+            return
+
+    def parseElADN(self, response):
+        
+        try:
+
+            yield{
+                'Title' : response.xpath("//div[@class='col-lg-9 col-12 mx-auto py-4 px-2 adn-notice-detail__header text-center']/div/h1/text()").get(), # Titulo
+                'Description' : response.xpath("//div[@class='col-lg-9 col-12 mx-auto py-4 px-2 adn-notice-detail__header text-center']/div/h2/text()").get().replace('\n',''),
+                'Category' : '',
+                'Image' : response.xpath('//picture/img/@src').get(),
+                'Url': response.url,
+                'Source' : 'ADN',
+                'Date' : date.today()
+            }
+
         except:
 
             return
