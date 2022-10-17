@@ -7,15 +7,6 @@ class Header extends React.Component{
     super(props);
     this.state = {value:''}
 
-    // this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  //
-  
-
-  handleChange = (e)=>{
-    this.setState({value:e.target.value})
   }
 
   render(){
@@ -25,14 +16,9 @@ class Header extends React.Component{
           <h1>Kabar</h1>
         </div>
         
-        {/* <nav>
-          <Link icon="bi bi-person-square"  linkText="Kabar"goTo=""></Link> 
-          <Link icon="bi bi-search"   linkText="Kabar"goTo="#search"></Link> 
-          <Link icon="bi bi-funnel" linkText="Kabar" ></Link>
-        </nav> */}
         <div className="search">
           <form onSubmit={this.props.submitEvent}>
-            <SearchBar holdTxt="¿Qué desea buscar?" change={this.handleChange} valueS={this.state.value}  />
+            <SearchBar holdTxt="¿Qué desea buscar?"  />
             <SubmitBtn />
           </form>
         </div>

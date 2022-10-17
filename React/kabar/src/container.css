@@ -274,3 +274,61 @@ b{
     box-shadow: 3px 3px 3.5px 3px #9f9f9f;
 
 }
+
+
+
+.searched{
+    /* border: 1px solid black; */
+    /* border-radius: ; */
+    display: flex;
+    
+
+    font-size: 0.8rem;
+
+    font-style: italic;
+    letter-spacing: 1px;
+    color: var(--color-fuente);
+    display: none;
+    font-weight: 600;
+
+    position: relative;
+    margin: 5px;
+    padding: 5px 20px;
+
+    box-shadow: transparent 0 0 0 3px,rgba(18, 18, 18, .1) 0 6px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+
+
+}
+
+.searched:hover{
+    box-shadow: #121212 0 0 0 3px, transparent 0 0 0 0;
+
+}
+
+/* .searchClose{
+    text-align: center;
+    justify-content: center;
+    justify-content: space-between;
+    font-style: normal;
+    font-size: 0.5rem;
+
+
+} 
+
+.searchClose:hover{
+    font-weight: 900;
+    text-shadow: 2px 2px 4px var(--color-categoria);
+
+}*/
+
+#searched{
+    font-size: 0.8rem;
+    letter-spacing: 0px;
+    font-weight: 400;
+}
+
+.no-result{
+    margin: 20px 0px;
+}

@@ -10,13 +10,14 @@ class Content extends React.Component{
     this.state = {
       news: [],
       newsRender: [],
-      newQuantity: 20,
+      newQuantity: 15,
       
     }
 
     this.fetchApi = this.fetchApi.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.deleteSearch = this.deleteSearch.bind(this);
   }
 
 
@@ -26,7 +27,7 @@ class Content extends React.Component{
     this.setState({news: data})
 
     
-    this.setState({newsRender:data.slice(0,this.state.newQuantity)})
+    this.setState({newsRender:data.slice(0,data.length)})
 
     return data;
   }    
@@ -38,10 +39,9 @@ class Content extends React.Component{
   
   handleClick(){
 
-
-    this.setState({newsRender:this.state.news.slice(0,this.state.newsRender.length +20)})
-    // console.log(this.state.newsRender.length)
-    if((this.state.newsRender.length+20) >= this.state.news.length){
+    this.setState({newQuantity: this.state.newQuantity+20})
+    
+    if((this.state.newQuantity+20) >= this.state.newsRender.length){
       document.getElementById("btnMore").style.display = "none";
     }
 
@@ -50,31 +50,44 @@ class Content extends React.Component{
   handleSubmit(e){
     
     const input = document.getElementById("searchInput");
-    this.search(input.value);
+    const searchResult = this.search(input.value);
 
 
+    document.getElementById("searched").innerHTML = input.value;
+    document.getElementsByClassName("searched")[0].style.display = "block";
+
+    this.setState({newsRender:searchResult})
+
+    input.value = '';
     e.preventDefault()
 
     // console.log(input.value)
   }
 
   search(text){
-
     const textLower = text.toLowerCase();
     let titleLower;
+    let descLower;
 
 
     const arrSearch = this.state.news.filter((elem)=>{
       titleLower = elem.Title.toLowerCase();
+      descLower = elem.Description.toLowerCase();
 
-      return titleLower.includes(textLower)
-      // 
-      // if(){
-        // return elem;
-      // }
+      return titleLower.includes(textLower) || descLower.includes(textLower);
     })
 
-    console.log(arrSearch);
+    console.log(arrSearch)
+
+    return arrSearch;
+  }
+
+  deleteSearch(e){
+    document.getElementsByClassName("searched")[0].style.display = "none";
+
+    this.setState({newsRender:this.state.news.slice(0,this.state.news.length)})
+    
+    
   }
 
   render(){
@@ -82,15 +95,22 @@ class Content extends React.Component{
     // this.state.newsRender = ;
     // console.log(this.state.newsRender)
     let temp = [];
+    const data = this.state.newsRender.slice(0, this.state.newQuantity)
+
+    console.log(this.state.newsRender)
 
     // console.log(data);
     return(
     <>
       <Header submitEvent={this.handleSubmit}></Header>
+
       <div className="content">
+      <h2 className="searched" onClick={this.deleteSearch}>Resultados de: <span id="searched"></span></h2>
+
       {
-        this.state.newsRender.map((e,ind)=>{
-	        temp = this.state.newsRender.slice(ind*5,(ind+1)*5)
+        data.length>0 ? 
+        data.map((e,ind)=>{
+	        temp = data.slice(ind*5,(ind+1)*5)
           try {
             if(temp.length !== 0){
               return Grid(temp);
@@ -100,16 +120,16 @@ class Content extends React.Component{
             // console.log(error)
             return <></>;
           }
-      })
+      }) : <h2 className="no-result" >No existen resultados para su busqueda</h2>
       }
-        <button onClick={this.handleClick} id="btnMore" className="btnMore">Ver más noticias</button>
+      {data.length>0 ? <button onClick={this.handleClick} id="btnMore" className="btnMore">Ver más noticias</button> :<></>}
+        
         <Scroll></Scroll>
       </div>
     </>
     )
   }
 }
-
 
 
 function New({Url, Image, Title, Descripcion , Category, Source, Date, Id, Bigger = ""}){
@@ -121,7 +141,7 @@ function New({Url, Image, Title, Descripcion , Category, Source, Date, Id, Bigge
       <h2>{Title}</h2>
       <h4><b>Fuente:</b> {Source}</h4>
       <h3><span className="category">{Category} <i className="bi  bi-tag-fill catIcon"></i></span></h3>
-      {/* <p>{Descripcion}</p> */}
+      <p>{Descripcion}</p>
       <h4 className="date"><b> Fecha de extraccion:</b> {Date}</h4>
       <div className="info"></div>
     </div>
