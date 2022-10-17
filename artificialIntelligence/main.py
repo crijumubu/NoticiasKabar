@@ -10,6 +10,7 @@ class artificalIntelligence:
 
         self.connection = mongo()
         self.checkSimilarity()
+        self.connection.client.close()
     
     def getNewsWithoutCategory(self):
 
