@@ -132,8 +132,15 @@ class Content extends React.Component{
 }
 
 
-function New({Url, Image, Title, Descripcion , Category, Source, Date, Id, Bigger = ""}){
+function New({Url, Image, Title, Description , Category, Source, Date, Id, Bigger = ""}){
+
   return(
+  <div className="new">
+  <div className="description">
+    <h3s className="description-title">Descripción:</h3s>
+    <p>{Description}</p>
+  </div>
+
   <a href={Url} className={`news ${Bigger}`} key={Id} target="_blank" rel="noreferrer">
     <img src={Image} alt="No img"></img>
     <div id="news-info" className="news-info">
@@ -141,11 +148,11 @@ function New({Url, Image, Title, Descripcion , Category, Source, Date, Id, Bigge
       <h2>{Title}</h2>
       <h4><b>Fuente:</b> {Source}</h4>
       <h3><span className="category">{Category} <i className="bi  bi-tag-fill catIcon"></i></span></h3>
-      <p>{Descripcion}</p>
       <h4 className="date"><b> Fecha de extraccion:</b> {Date}</h4>
       <div className="info"></div>
     </div>
   </a>
+  </div>
   );
 }
 
@@ -155,19 +162,19 @@ function Grid(arr){
 	<>
 	  <div className="grid-2">
 
-      {arr[0] ? <New Url={arr[0].Url} Image={arr[0].Image} Title={arr[0].Title} Descripcion={arr[0].Descripcion} Category={arr[0].Category} Source={arr[0].Source} Date={arr[0].Date} Id="0"></New> : <></>}
+      {arr[0] ? <New Url={arr[0].Url} Image={arr[0].Image} Title={arr[0].Title} Description={arr[0].Description} Category={arr[0].Category} Source={arr[0].Source} Date={arr[0].Date} Id="0"></New> : <></>}
       
-      {arr[1] ? <New Url={arr[1].Url} Image={arr[1].Image} Title={arr[1].Title} Descripcion={arr[1].Descripcion} Category={arr[1].Category} Source={arr[1].Source} Date={arr[1].Date} Id="1"></New> : <></>}
+      {arr[1] ? <New Url={arr[1].Url} Image={arr[1].Image} Title={arr[1].Title} Description={arr[1].Description} Category={arr[1].Category} Source={arr[1].Source} Date={arr[1].Date} Id="1"></New> : <></>}
       
   </div>
 
   <div className="grid-3">
-      {arr[2] ? <New Url={arr[2].Url} Image={arr[2].Image} Title={arr[2].Title} Descripcion={arr[2].Descripcion} Category={arr[2].Category} Source={arr[2].Source} Date={arr[2].Date} Id="2"></New> : <></>}
+      {arr[2] ? <New Url={arr[2].Url} Image={arr[2].Image} Title={arr[2].Title} Description={arr[2].Description} Category={arr[2].Category} Source={arr[2].Source} Date={arr[2].Date} Id="2"></New> : <></>}
       
 
-      {arr[3] ? <New Url={arr[3].Url} Image={arr[3].Image} Title={arr[3].Title} Descripcion={arr[3].Descripcion} Category={arr[3].Category} Source={arr[3].Source} Date={arr[3].Date} Id="3"></New> : <></>}
+      {arr[3] ? <New Url={arr[3].Url} Image={arr[3].Image} Title={arr[3].Title} Description={arr[3].Description} Category={arr[3].Category} Source={arr[3].Source} Date={arr[3].Date} Id="3"></New> : <></>}
       
-      {arr[4] ? <New Url={arr[4].Url} Image={arr[4].Image} Title={arr[4].Title} Descripcion={arr[4].Descripcion} Category={arr[4].Category} Source={arr[4].Source} Date={arr[4].Date} Id="4" Bigger="big"></New> : <></>}
+      {arr[4] ? <New Url={arr[4].Url} Image={arr[4].Image} Title={arr[4].Title} Description={arr[4].Description} Category={arr[4].Category} Source={arr[4].Source} Date={arr[4].Date} Id="4" Bigger="big"></New> : <></>}
       
 
   </div>
