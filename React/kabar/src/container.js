@@ -22,12 +22,12 @@ class Content extends React.Component{
 
 
   async fetchApi(){
-    const response = await fetch('https://raw.githubusercontent.com/crijumubu/NoticiasKabar/artificial-intelligence/news/news.json');
-    const data = await response.json();
-    this.setState({news: data})
+    const response = await fetch('https://raw.githubusercontent.com/crijumubu/NoticiasKabar/artificial-intelligence/database/news.json');
+    let data = await response.json();
+    data = data.reverse();
 
-    
-    this.setState({newsRender:data.slice(0,data.length)})
+    this.setState({news: data});
+    this.setState({newsRender:data.slice(0,data.length)});
 
     return data;
   }    
@@ -41,7 +41,7 @@ class Content extends React.Component{
 
     this.setState({newQuantity: this.state.newQuantity+20})
     
-    if((this.state.newQuantity+20) >= this.state.newsRender.length){
+    if((this.state.newQuantity+15) >= this.state.newsRender.length){
       document.getElementById("btnMore").style.display = "none";
     }
 
@@ -61,7 +61,6 @@ class Content extends React.Component{
     input.value = '';
     e.preventDefault()
 
-    // console.log(input.value)
   }
 
   search(text){
@@ -77,7 +76,6 @@ class Content extends React.Component{
       return titleLower.includes(textLower) || descLower.includes(textLower);
     })
 
-    console.log(arrSearch)
 
     return arrSearch;
   }
@@ -92,14 +90,9 @@ class Content extends React.Component{
 
   render(){
 
-    // this.state.newsRender = ;
-    // console.log(this.state.newsRender)
     let temp = [];
     const data = this.state.newsRender.slice(0, this.state.newQuantity)
 
-    console.log(this.state.newsRender)
-
-    // console.log(data);
     return(
     <>
       <Header submitEvent={this.handleSubmit}></Header>
@@ -117,7 +110,6 @@ class Content extends React.Component{
             }
             return <></>
           } catch (error) {
-            // console.log(error)
             return <></>;
           }
       }) : <h2 className="no-result" >No existen resultados para su busqueda</h2>
@@ -137,7 +129,7 @@ function New({Url, Image, Title, Description , Category, Source, Date, Id, Bigge
   return(
   <div className="new">
   <div className="description">
-    <h3s className="description-title">Descripción:</h3s>
+    <h3 className="description-title">Descripción:</h3>
     <p>{Description}</p>
   </div>
 
@@ -183,8 +175,6 @@ function Grid(arr){
   )
 }
 
-// function BtnTop(){
-  
-// }
+
 
 export default Content;

@@ -15,6 +15,10 @@
     font-size: 0.7rem;
 }
 
+form{
+    display: inline-block;
+}
+
 .search-btn{
     font-size: 0.6rem;
     border: none;
@@ -33,7 +37,8 @@
     width: 90%;
     border: 0px;
     border-bottom: 1px solid var(--color-search-bar);
-    padding: 0px 10px 5px;
+    padding: 0px 10px 7px;
+    margin:  0px 10px;
 
     outline: none;
     display: inline-block;
@@ -67,12 +72,18 @@
     
 } 
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 510px) {
     .search-inp{
         width: 300px;
     }
-    
 } 
+
+@media screen and (max-width: 420px) {
+    .search-inp{
+        width: 250px;
+    }
+} 
+
 
 /* * Barra */
 
@@ -144,6 +155,29 @@ a:visited{
     background-color: var(--color-barra);
 }
 
+.filter-btn{
+
+
+    border: none;
+    background-color: transparent;
+    color: var(--color-search-bar);
+
+    /* position: relative; */
+}
+
+.filter-btn i{
+    font-size: 0.8rem;
+}
+
+.filter-btn:hover > .filter-btn i{
+    border: 1px solid #000;
+}
+
+.button:hover{
+    color: #000;
+    cursor: pointer;
+}
+
 /* *  Eliminar btn de busqueda default */
 
 input[type="search"]::-webkit-search-decoration,
@@ -151,4 +185,209 @@ input[type="search"]::-webkit-search-cancel-button,
 input[type="search"]::-webkit-search-results-button,
 input[type="search"]::-webkit-search-results-decoration {
   -webkit-appearance:none;
+  appearance: none;
+}
+
+
+.modal{
+    /* background-color: transparent; */
+    position: absolute;
+    padding-top: 100px;
+    height: 100%;
+    width: 100%;
+    top: 0;
+
+    z-index: 20;
+
+    background-color: #000000ab;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 250ms ease-in;
+
+
+    /* ! ELIMINAR */
+    opacity: 1;
+
+}
+
+.modal-active{
+    pointer-events: auto;
+    opacity: 1;
+
+}
+
+.modal-wrap{
+
+    
+    background: #fff;
+    margin:  0 auto;
+    /* padding: 10px 20px; */
+
+    text-align: left;
+    position: relative;
+
+    
+
+    /* clip-path: polygon(52.3% 47.7%, 52.6% 48%, 52.3% 48%, 52.3% 48%); */
+
+}
+
+.modal-wrap form{
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    /* align-items: center; */
+}
+
+.modal-wrap form div{
+    height: 30px;
+    padding: 0px 10px;
+}
+
+/* .left{
+    justify-self: baseline;
+    align-self: left;
+} */
+
+.modal-wrap h2{
+    display: inline-block;
+    border-bottom: 1px solid #000;
+    width: 100%;
+}
+
+.modal-wrap label{
+    font-size: 0.6rem;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+
+    position: absolute;
+    right: 20px;
+    top: 5px;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+.filter-submit{
+    /* display: flex; */
+    /* align-items: center; */
+    /* text-align: center; */
+    /* justify-content: center; */
+    /* justify-self: center; */
+    
+    font-size: 0.7rem;
+    margin-top: 20px;
+
+    /* width: 300px; */
+    margin: auto;
+    padding: 5px 30px;
+
+    
+
+    border: 1px solid var(--color-info);
+    background-color: var(--color-titulos);
+    color: var(--color-info);
+
+    transition: all 0.25s ease-in;
+}
+
+.filter-submit:hover{
+    border: 1px solid var(--color-titulos);
+    background-color: var(--color-info);
+    color: var(--color-titulos);
+}
+
+/* .modal-wrap-active{
+        opacity: 1;
+
+}
+
+.open-bg{
+    animation: open-modal 250ms ease-in forwards;
+    animation-play-state: paused;
+}
+
+.open-wrap{
+    animation: open-holder 250ms ease-in 250ms forwards;
+    animation-play-state: paused;
+
+} */
+
+.scroll{
+    overflow: hidden;
+}
+
+
+@keyframes open-modal{
+    100%{
+    }
+}
+
+@keyframes open-holder{
+    100%{
+        clip-path: polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%);
+
+    }
+}
+
+
+@media screen and (min-width: 1300px){
+    .modal-wrap{
+        width: 800px;
+        padding: 20px 20px;
+
+    }
+    
+}
+
+@media screen  and (max-width: 1300px) {
+    .modal-wrap{
+        width: 750px;
+        padding: 20px 20px;
+
+    }
+}
+
+/* CELULARES */
+@media screen and (max-width: 850px) {
+    .modal-wrap{
+        width: 600px;
+        padding: 20px 15px;
+
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .modal-wrap{
+        width: 500px;
+        padding: 20px 10px;
+
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .modal-wrap{
+        width: 400px;
+        padding: 20px 10px;
+
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .modal-wrap{
+        width: 300px;
+        padding: 20px 10px;
+
+    }
 }

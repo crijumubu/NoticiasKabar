@@ -28,6 +28,12 @@
     .grid-3{
         grid-template-columns: 33% 33% 33%;
     }
+
+    .description p{
+        padding: 0px 50px;
+
+    }
+
 }
 
 
@@ -46,6 +52,10 @@
 
     .big{
         grid-column: auto / span 2;
+    }
+
+    .description p{
+        padding: 0 40px;
     }
 }
 
@@ -66,6 +76,10 @@
         grid-column: auto;
     }
 
+    .description p{
+        padding: 0 30px;
+    }
+
 }
 
 @media screen and (max-width: 650px) {
@@ -74,6 +88,10 @@
     }  
     *{
         font-size: 26px;
+    }
+
+    .description p{
+        padding: 0 30px;
     }
 }
 
@@ -105,21 +123,6 @@
 .news, img{
     
     border-radius: 5px;
-}
-
-.news{
-    /* padding: 20px ; */
-    
-    /* display: grid; */
-    /* grid-template-rows: 60% 1fr; */
-    /* border: 1px solid var(--color-iconos-barra); */
-    /* background-image: url(/img/1.jpg);
-    background-repeat: no-repeat;
-    background-size: cover; */
-}
-
-.news h4,.news h2, .news h3{
-
 }
 
 .news h2{
@@ -211,10 +214,6 @@ b{
 
 }
 
-.news:hover{
-    box-shadow: 2px 4px 10px rgb(150, 150, 150);
-}
-
 .new{
     position: relative;
 }
@@ -291,7 +290,6 @@ b{
 
     font-style: italic;
     letter-spacing: 1px;
-    color: var(--color-fuente);
     display: none;
     font-weight: 600;
 
@@ -306,15 +304,15 @@ b{
 
 }
 
-.searched:hover{
-    box-shadow: #121212 0 0 0 3px, transparent 0 0 0 0;
-
-}
-
 #searched{
     font-size: 0.8rem;
     letter-spacing: 0px;
     font-weight: 400;
+}
+
+.description h3{
+    color: #efe3ba;
+
 }
 
 .no-result{
@@ -332,9 +330,8 @@ b{
     justify-content: center;
     align-items: center;
 
-    background-color: #0d1321e2;
+    background-color: #0d1321ca;
     color: #ffffff;
-    /* border: 3px solid var(--color-titulos); */
     border-radius: 5px;
 
 
@@ -343,11 +340,24 @@ b{
 
     clip-path: polygon(48.9% 0%, 48.9% 0%, 49.6% 100%, 49.6% 100%);
     transition: clip-path 0.7s ease-in-out;
+
+
+
+
+
 }
 
 .description p{
+    max-height: 70%;
     font-size: 0.6rem;
-    padding: 0px 50px;
+
+    overflow-y:scroll;
+    text-overflow: ellipsis;
+
+
+    
+
+
 }
 
 .description-title{
