@@ -40,4 +40,5 @@ class controller:
 
 control = controller()
 control.insertWithoutRepeating()
+control.mongo.extractJson()
 control.close()

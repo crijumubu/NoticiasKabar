@@ -216,6 +216,10 @@ class newsSpider(scrapy.Spider):
 
                 description = response.xpath("//p[@class='epigraph regular_lead1 ']/text()").get()
 
+            if (title == None or description == None):
+
+                return
+
             yield {
                 'Title' : title,
                 'Description' : description,
