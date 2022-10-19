@@ -17,7 +17,7 @@ class Header extends React.Component{
         </div>
         
         <div className="search">
-            {/* <Filter arrNoticias={this.props.arrNoticias}></Filter> */}
+            <Filter changeNews={this.props.changeNews}></Filter>
           <form onSubmit={this.props.submitEvent}>
             <SearchBar holdTxt="¿Qué desea buscar?"  />
             <SubmitBtn />
@@ -41,25 +41,14 @@ function SubmitBtn(){
 }
 
 
-function Filter({arrNoticias}){
-  console.log(arrNoticias)
+function Filter({changeNews}){
+  // console.log(arrNoticias)
   const showModal = ()=>{
     
     const modal = document.getElementById("modal");
-    const modalWrap = document.getElementById("modal-wrap");
 
-    // modal.style.animationPlayState = "running";
-    // modalWrap.style.animationPlayState = "running";
-
-
-
-    // modal.classList.remove("delay");
     document.body.style.overflow = "hidden"
     modal.classList.add("modal-active");
-    // modalWrap.classList.add("modal-wrap-active");
-    // modal.classList.add("delay");
-    // modalWrap.classList.remove("modal-wrap-inactive");
-
   }
 
   const closeModal = (e)=>{
@@ -67,31 +56,18 @@ function Filter({arrNoticias}){
     if(e.target.id === "modal" || e.target.id ==="close"){
       console.log(e.target.id )
       const modal = document.getElementById("modal");
-      const modalWrap = document.getElementById("modal-wrap");
-      
-      // modal.style.animationDirection = "reverse";
-      // modalWrap.style.animationDirection = "reverse";
-      // modal.style.animationFillMode = "none"
-      // modalWrap.style.animationFillMode = "none"
-      
-      // setTimeout(()=>{
-        //   modal.style.animationPlayState = "running";
-        //   modalWrap.style.animationPlayState = "running";
-        
-        // }, 2000)
 
-        
-        
-        // modalWrap.classList.remove("delay")
         document.body.style.overflow = "visible"
         modal.classList.remove("modal-active")
-        // modalWrap.classList.remove("modal-wrap-active")
-        // modalWrap.classList.add("delay")
-        // document.getElementById("modal-wrap").classList.add("modal-wrap-inactive")
-        
       }
+  }
 
-
+  const handleSubmit = (e)=>{
+    e.preventDefault();
+    // console.log(arrNoticias);
+    // arrNoticias = [];
+    changeNews([]);
+    // console.log(arrNoticias);
   }
 
   return (
@@ -103,72 +79,72 @@ function Filter({arrNoticias}){
       </button>
       <div className="modal open-bg" id="modal" onClick={closeModal}>
         <div className="modal-wrap open-wrap" id="modal-wrap">
-        <span class="close" onClick={closeModal} id="close">&times;</span>
-          <form>
+        <span className="close" onClick={closeModal} id="close">&times;</span>
+          <form onSubmit={handleSubmit}>
 
             <h2>Filtro por Categorias:</h2>
             {/* <h3>Categorias</h3> */}
             <div>
-              <input type="checkbox" name="categories[]" id="deportes"></input><label for="deportes"> Deportes</label><br></br>
+              <input type="checkbox" name="categories[]" id="deportes"></input><label htmlFor="deportes"> Deportes</label><br></br>
             </div>
 
             <div>
-              <input type="checkbox" name="categories[]" id="judicial"></input><label for="judicial"> Judicial</label ><br></br>
-            </div>
-
-            <div>
-
-            <input type="checkbox" name="categories[]" id="politica"></input><label for="politica"> Política</label><br></br>
+              <input type="checkbox" name="categories[]" id="judicial"></input><label htmlFor="judicial"> Judicial</label ><br></br>
             </div>
 
             <div>
 
-            <input type="checkbox" name="categories[]" id="uInvestigativa"></input><label for="uInvestigativa"> Unidad investigativa</label><br></br>
-            </div>
-            
-            <div>
-
-            <input type="checkbox" name="categories[]" id="economia"></input><label for="economia"> Economía</label><br></br>
+            <input type="checkbox" name="categories[]" id="politica"></input><label htmlFor="politica"> Política</label><br></br>
             </div>
 
             <div>
 
-            <input type="checkbox" name="categories[]" id="technologia"></input><label for="technologia"> Technología</label><br></br>
-            </div>
-
-            <div>
-
-            <input type="checkbox" name="categories[]" id="ciencia"></input><label for="ciencia"> Ciencia</label><br></br>
-            </div>
-
-            <div>
-
-            <input type="checkbox" name="categories[]" id="salud"></input><label for="salud"> Salud</label><br></br>
-            </div>
-
-            <div>
-
-            <input type="checkbox" name="categories[]" id="educacion"></input><label for="educacion"> Educacíon</label><br></br>
-            </div>
-
-            <div>
-
-            <input type="checkbox" name="categories[]" id="entreteniento"></input><label for="entreteniento"> Entretenimeinto</label><br></br>
+            <input type="checkbox" name="categories[]" id="uInvestigativa"></input><label htmlFor="uInvestigativa"> Unidad investigativa</label><br></br>
             </div>
             
             <div>
 
-            <input type="checkbox" name="categories[]" id="colombia"></input><label for="colombia"> Colombia</label><br></br>
+            <input type="checkbox" name="categories[]" id="economia"></input><label htmlFor="economia"> Economía</label><br></br>
             </div>
 
             <div>
 
-            <input type="checkbox" name="categories[]" id="otros"></input><label for="otros"> Otros</label><br></br>
+            <input type="checkbox" name="categories[]" id="technologia"></input><label htmlFor="technologia"> Technología</label><br></br>
+            </div>
+
+            <div>
+
+            <input type="checkbox" name="categories[]" id="ciencia"></input><label htmlFor="ciencia"> Ciencia</label><br></br>
+            </div>
+
+            <div>
+
+            <input type="checkbox" name="categories[]" id="salud"></input><label htmlFor="salud"> Salud</label><br></br>
+            </div>
+
+            <div>
+
+            <input type="checkbox" name="categories[]" id="educacion"></input><label htmlFor="educacion"> Educacíon</label><br></br>
+            </div>
+
+            <div>
+
+            <input type="checkbox" name="categories[]" id="entreteniento"></input><label htmlFor="entreteniento"> Entretenimeinto</label><br></br>
+            </div>
+            
+            <div>
+
+            <input type="checkbox" name="categories[]" id="colombia"></input><label htmlFor="colombia"> Colombia</label><br></br>
+            </div>
+
+            <div>
+
+            <input type="checkbox" name="categories[]" id="otros"></input><label htmlFor="otros"> Otros</label><br></br>
             </div>
 
             
             {/* <h3>Portales de noticias</h3> */}
-            <button type="submit" className="filter-submit">Filtrar</button>
+            <button type="submit" className="filter-submit" >Filtrar</button>
           </form>
         </div>
       </div>

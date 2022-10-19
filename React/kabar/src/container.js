@@ -18,6 +18,7 @@ class Content extends React.Component{
     this.handleClick = this.handleClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.deleteSearch = this.deleteSearch.bind(this);
+    this.setNewsRender = this.setNewsRender.bind(this);
   }
 
 
@@ -88,14 +89,21 @@ class Content extends React.Component{
     
   }
 
+  setNewsRender(arr){
+    this.setState({newsRender: arr})
+  }
+
   render(){
 
     let temp = [];
     const data = this.state.newsRender.slice(0, this.state.newQuantity)
+    console.log("Arr newsRender: ")
+    console.log(this.state.newsRender)
+    console.log("-----------------------")
 
     return(
     <>
-      <Header submitEvent={this.handleSubmit}></Header>
+      <Header submitEvent={this.handleSubmit} arrNoticias={this.state.newsRender} changeNews={this.setNewsRender}></Header>
 
       <div className="content">
       <h2 className="searched" onClick={this.deleteSearch}>Resultados de: <span id="searched"></span></h2>

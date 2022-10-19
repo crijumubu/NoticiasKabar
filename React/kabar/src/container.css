@@ -351,7 +351,7 @@ b{
     max-height: 70%;
     font-size: 0.6rem;
 
-    overflow-y:scroll;
+    overflow-y:auto;
     text-overflow: ellipsis;
 
 
