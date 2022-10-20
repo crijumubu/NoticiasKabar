@@ -98,8 +98,8 @@
 
 
 .content{
-    display: flex;
-    flex-direction: column;
+    /* display: flex; */
+    /* flex-direction: column; */
 }
 
 /* *Noticia */
@@ -295,7 +295,7 @@ b{
 
     position: relative;
     margin: 5px;
-    padding: 5px 20px;
+    padding: 10px 20px;
 
     box-shadow: transparent 0 0 0 3px,rgba(18, 18, 18, .1) 0 6px 20px;
     border-radius: 5px;
@@ -354,10 +354,6 @@ b{
     overflow-y:auto;
     text-overflow: ellipsis;
 
-
-    
-
-
 }
 
 .description-title{
@@ -367,4 +363,19 @@ b{
 
 .new:hover>.description{
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+}
+
+.container-scroll{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+}
+
+.filtro-delete{
+    /* width: 200px; */
+    font-size: 0.8rem;
+    padding: 0px 5px;
+    text-align: left;
+    justify-content: flex-start;
+    /* padding: 0px 10px; */
 }

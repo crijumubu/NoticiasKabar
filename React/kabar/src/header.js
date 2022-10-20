@@ -7,22 +7,28 @@ class Header extends React.Component{
     super(props);
     this.state = {value:''}
 
+    this.resetPage = this.resetPage.bind(this);
+  }
+
+  resetPage(){
+    this.props.changeNews("reset");
   }
 
   render(){
     return (
       <header>
-        <div className="header-container">
+        <div className="header-container" onClick={this.resetPage}>
           <h1>Kabar</h1>
         </div>
         
         <div className="search">
             <Filter changeNews={this.props.changeNews}></Filter>
           <form onSubmit={this.props.submitEvent}>
-            <SearchBar holdTxt="¿Qué desea buscar?"  />
+            <SearchBar holdTxt="¿Qué desea buscar?" change={this.props.submitEvent} />
             <SubmitBtn />
           </form>
         </div>
+
       </header>
     );  
   }
@@ -64,10 +70,14 @@ function Filter({changeNews}){
 
   const handleSubmit = (e)=>{
     e.preventDefault();
-    // console.log(arrNoticias);
-    // arrNoticias = [];
-    changeNews([]);
-    // console.log(arrNoticias);
+
+    const categorias = [];
+    document.getElementsByName("categories[]").forEach((elem)=>{
+      if(elem.checked){
+        categorias.push(elem.id)
+      }
+    })
+    changeNews(categorias);
   }
 
   return (

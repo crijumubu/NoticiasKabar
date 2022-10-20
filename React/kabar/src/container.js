@@ -59,7 +59,7 @@ class Content extends React.Component{
 
     this.setState({newsRender:searchResult})
 
-    input.value = '';
+    // input.value = '';
     e.preventDefault()
 
   }
@@ -84,13 +84,20 @@ class Content extends React.Component{
   deleteSearch(e){
     document.getElementsByClassName("searched")[0].style.display = "none";
 
+    document.getElementById("searchInput").value = "";
+
     this.setState({newsRender:this.state.news.slice(0,this.state.news.length)})
     
     
   }
 
   setNewsRender(arr){
-    this.setState({newsRender: arr})
+    if(arr ==="reset"){
+      this.setState({newsRender:this.state.news.slice(0,this.state.news.length)})
+      return
+    }
+    console.log(arr)
+    // this.setState({newsRender: arr})
   }
 
   render(){
@@ -106,7 +113,9 @@ class Content extends React.Component{
       <Header submitEvent={this.handleSubmit} arrNoticias={this.state.newsRender} changeNews={this.setNewsRender}></Header>
 
       <div className="content">
-      <h2 className="searched" onClick={this.deleteSearch}>Resultados de: <span id="searched"></span></h2>
+      <button className="filtro-delete">Prueba</button>
+
+      <h2 className="searched" onClick={this.deleteSearch}>Resultados de: <span id="searched"></span><span className="close">&times;</span></h2>
 
       {
         data.length>0 ? 
@@ -122,9 +131,10 @@ class Content extends React.Component{
           }
       }) : <h2 className="no-result" >No existen resultados para su busqueda</h2>
       }
-      {data.length>0 ? <button onClick={this.handleClick} id="btnMore" className="btnMore">Ver más noticias</button> :<></>}
-        
-        <Scroll></Scroll>
+          <Scroll></Scroll>
+        <div className="container-scroll">
+          {data.length>0 ? <button onClick={this.handleClick} id="btnMore" className="btnMore">Ver más noticias</button> :<></>}
+        </div>
       </div>
     </>
     )
@@ -135,7 +145,7 @@ class Content extends React.Component{
 function New({Url, Image, Title, Description , Category, Source, Date, Id, Bigger = ""}){
 
   return(
-  <div className="new">
+  <div className={`new ${Bigger}`}>
   <div className="description">
     <h3 className="description-title">Descripción:</h3>
     <p>{Description}</p>
