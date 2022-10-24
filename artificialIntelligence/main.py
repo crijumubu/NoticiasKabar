@@ -21,7 +21,7 @@ class artificalIntelligence:
 
         categoriesIndex = ['Deportes', 'Judicial', 'Política', 'Unidad investigativa', 'Colombia', 'Economía', 'Tecnología', 'Ciencia', 'Salud', 'Educación', 'Entretenimiento']
         
-        categories = [['Deporte', 'Fútbol', 'Fitness', 'Ejercicio', 'Gol', 'Campeón', 'Vencer', 'Juego', 'Copa', 'Jugador', 'Clasificación', 'Cuadrangular'], ['Corrupción', 'Escándalo', 'Fiscalía', 'Contrato', 'Audiencia', 'Mafia', 'Ley', 'Corte', 'Proceso', 'Muerte', 'Irregularidad', 'Juez'], ['Presidente', 'Vicepresidente', 'Alcalde', 'Gobernador', 'Electoral', 'Director', 'Congreso', 'Reforma', 'Senado', 'Embajador', 'Ministro', 'Partido'], ['Investigación', 'Escándalo', 'Denuncia', 'Presunto', 'Estudio', 'Corrupción', 'Testigo', 'Indagación', 'Capturado', 'Proceso', 'Confesión', 'Muertos'], ['Colombia', 'Bogotá', 'Medellín', 'Cali', 'Bucaramanga', 'Barranquilla', 'Cartagena', 'Región', 'Municipio', 'Departamento', 'Caribe', 'Pacífico'], ['Economía', 'Finanzas', 'Banco', 'Interés', 'Dolar', 'Petróleo', 'Inversión', 'Crédito', 'Inflación', 'Comercio', 'Ahorro', 'Precio'], ['Tecnología', 'TikTok', 'Instagram', 'Facebook', 'Twitter', 'WhatsApp', 'Meta', 'Teléfono', 'Computador', 'Google', 'iPhone', 'App'], ['Ciencia', 'Nasa', 'Científico', 'ADN', 'Extinción', 'Astrónomo', 'Luna', 'Espacial', 'Atómico', 'Astronauta', 'Telescopio', 'Descubrir'], ['Salud', 'Organo', 'Paciente', 'Obesidad', 'Sangre', 'Enfermedad', 'OMS', 'OPS', 'Brote', 'Vacuna', 'Bacteria', 'Viruela'], ['Educación', 'Beca', 'Universidad', 'Estudiar', 'Examen', 'Icetex', 'Curso', 'Libro', 'Colegio', 'Escuela', 'Enseñanza', 'Aprendizaje'], ['Entretenimiento', 'Actriz', 'Actor', 'Álbum', 'Canción', 'Película', 'Música', 'Series', 'Televisión', 'Cantante', 'Redes', 'Farándula']]
+        categories = [['Deporte', 'Fútbol', 'Fitness', 'Ejercicio', 'Gol', 'Campeón', 'Vencer', 'Juego', 'Copa', 'Jugador', 'Clasificación', 'Cuadrangular', 'Liga'], ['Corrupción', 'Justicia' ,'Escándalo', 'Fiscalía', 'Contrato', 'Audiencia', 'Mafia', 'Ley', 'Corte', 'Proceso', 'Muerte', 'Irregularidad', 'Juez'], ['Presidente', 'Estado', 'Vicepresidente', 'Alcalde', 'Gobernador', 'Electoral', 'Director', 'Congreso', 'Reforma', 'Senado', 'Embajador', 'Ministro', 'Partido'], ['Investigación', 'Escándalo', 'Denuncia', 'Presunto', 'Estudio', 'Corrupción', 'Testigo', 'Indagación', 'Capturado', 'Proceso', 'Confesión', 'Muertos'], ['Colombia', 'Bogotá', 'Medellín', 'Cali', 'Bucaramanga', 'Barranquilla', 'Cartagena', 'Región', 'Municipio', 'Departamento', 'Caribe', 'Pacífico', 'Cundinamarca'], ['Economía', 'Finanzas', 'Banco', 'Interés', 'Peso', 'Crisis', 'Devaluación', 'Dólar', 'Petróleo', 'Tributaria', 'Inversión', 'Crédito', 'Inflación', 'Comercio', 'Ahorro', 'Precio'], ['Tecnología', 'TikTok', 'Instagram', 'Facebook', 'Twitter', 'WhatsApp', 'Meta', 'Teléfono', 'Computador', 'Google', 'iPhone', 'App'], ['Ciencia', 'Nasa', 'Científico', 'ADN', 'Extinción', 'Astrónomo', 'Luna', 'Espacial', 'Atómico', 'Astronauta', 'Telescopio', 'Descubrir'], ['Salud', 'Organo', 'Paciente', 'Obesidad', 'Sangre', 'Enfermedad', 'OMS', 'OPS', 'Brote', 'Vacuna', 'Bacteria', 'Viruela'], ['Educación', 'Beca', 'Universidad', 'Estudiar', 'Examen', 'Icetex', 'Curso', 'Libro', 'Colegio', 'Escuela', 'Enseñanza', 'Aprendizaje'], ['Entretenimiento', 'Actriz', 'Actor', 'Álbum', 'Canción', 'Película', 'Música', 'Series', 'Televisión', 'Cantante', 'Redes', 'Farándula']]
 
         for new in self.getNewsWithoutCategory():
             
@@ -71,26 +71,32 @@ class artificalIntelligence:
 
     def wordSimilarity(self, phraseTokenization, newsWordTokenization):
 
-        sw = stopwords.words('spanish') 
+        try:
 
-        l1 =[]
-        l2 =[]
+            sw = stopwords.words('spanish') 
 
-        phraseSet = {w for w in phraseTokenization if not w in sw}
-        newsWordSet = {w for w in newsWordTokenization if not w in sw} 
+            l1 =[]
+            l2 =[]
 
-        rvector = newsWordSet.union(phraseSet) 
-        for w in rvector:
-            if w in newsWordSet: l1.append(1)
-            else: l1.append(0)
-            if w in phraseSet: l2.append(1)
-            else: l2.append(0)
-        c = 0
+            phraseSet = {w for w in phraseTokenization if not w in sw}
+            newsWordSet = {w for w in newsWordTokenization if not w in sw} 
 
-        for i in range(len(rvector)):
-            c+= l1[i]*l2[i]
-        cosine = c / float((sum(l1)*sum(l2))**0.5)
+            rvector = newsWordSet.union(phraseSet) 
+            for w in rvector:
+                if w in newsWordSet: l1.append(1)
+                else: l1.append(0)
+                if w in phraseSet: l2.append(1)
+                else: l2.append(0)
+            c = 0
 
-        return cosine
+            for i in range(len(rvector)):
+                c+= l1[i]*l2[i]
+            cosine = c / float((sum(l1)*sum(l2))**0.5)
+
+            return cosine
+
+        except:
+
+            return 0
 
 IAobject = artificalIntelligence();
