@@ -10,15 +10,23 @@ class Content extends React.Component{
     this.state = {
       news: [],
       newsRender: [],
+      // filterC: [],
+      // filterS: [],
       newQuantity: 15,
       
     }
+
+    this.filterS = []
+    this.filterC = []
 
     this.fetchApi = this.fetchApi.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.deleteSearch = this.deleteSearch.bind(this);
-    this.setNewsRender = this.setNewsRender.bind(this);
+    this.setFilter = this.setFilter.bind(this);
+    this.filterCategories = this.filterCategories.bind(this);
+    this.filterSources = this.filterSources.bind(this);
+    this.filterBoth = this.filterBoth.bind(this);
   }
 
 
@@ -34,8 +42,10 @@ class Content extends React.Component{
   }    
 
   componentDidMount(){
-    this.fetchApi(this.renderGrid);
+    // this.setState({filterC:[]})
+    // this.setState({filterS:[]})
 
+    this.fetchApi(this.renderGrid);
   }
   
   handleClick(){
@@ -51,11 +61,20 @@ class Content extends React.Component{
   handleSubmit(e){
     
     const input = document.getElementById("searchInput");
+    console.log(input.value==="")
+    if(input.value === ""){
+      // console.log(document.getElementsByClassName("searched"))
+      document.getElementById("searched-result").classList.add('inactive');
+      return;
+      // console.log(document.getElementsByClassName("searched"))
+    }
+    document.getElementById("searched-result").classList.remove('inactive');
     const searchResult = this.search(input.value);
 
+    
 
     document.getElementById("searched").innerHTML = input.value;
-    document.getElementsByClassName("searched")[0].style.display = "block";
+    document.getElementById("searched-result").style.display = "block";
 
     this.setState({newsRender:searchResult})
 
@@ -82,7 +101,7 @@ class Content extends React.Component{
   }
 
   deleteSearch(e){
-    document.getElementsByClassName("searched")[0].style.display = "none";
+    document.getElementById("searched-result").classList.add('inactive');
 
     document.getElementById("searchInput").value = "";
 
@@ -91,31 +110,127 @@ class Content extends React.Component{
     
   }
 
-  setNewsRender(arr){
-    if(arr ==="reset"){
+  setFilter(arr, type=""){
+    // console.log(arr)
+    // console.log(type)
+
+    if("reset"){
+      this.setState({newsRender:this.state.news.slice(0,this.state.news.length)})
+      this.deleteSearch();
+      return
+    }
+
+    if(arr ==="resetC"){
+      console.log("resetC");
+      this.filterC = []
+      // this.setState({filterC:[]})
+      if(this.filterS.length>0){
+        this.filterSources();
+        return
+      }
       this.setState({newsRender:this.state.news.slice(0,this.state.news.length)})
       return
     }
-    console.log(arr)
+    
+    if(arr ==="resetS"){
+
+      this.filterS = []
+      // this.setState({filterS:[]})
+      if(this.filterC.length>0){
+        this.filterCategories();
+        return
+      }
+      this.setState({newsRender:this.state.news.slice(0,this.state.news.length)})
+      return
+    }
+
+    const newFilter = arr.slice(0,arr.length)
+    if(type === "categories"){
+
+      this.filterC = newFilter;
+      // this.setState({filterC: newFilter})
+      // console.log(this.state.filterC)
+      this.filterCategories();
+
+      return
+    }
+    
+    if(type==="sources"){
+      // console.log(newFilter)
+      this.filterS = newFilter;
+      // this.setState({filterS:newFilter})
+      this.filterSources();
+    }
+
+    // console.log(arr)
     // this.setState({newsRender: arr})
+  }
+
+  filterCategories(){
+    if(this.filterS.length === 0){
+      const arrFiltered = this.state.news.filter(newItem => {
+        return this.filterC.includes(newItem.Category)
+      });
+
+      this.setState({newsRender:arrFiltered.slice(0,arrFiltered.length)})
+
+      return
+    }
+
+    
+    this.filterBoth()
+
+    // console.log(this.state.filterC)
+    
+  }
+
+
+  filterSources(){
+
+    if(this.filterC.length === 0){
+      const arrFiltered = this.state.news.filter(newItem => {
+        return this.filterS.includes(newItem.Source)
+      });
+      
+      // console.log(arrFiltered)
+      this.setState({newsRender:arrFiltered.slice(0,arrFiltered.length)})
+
+      return
+    }
+
+    this.filterBoth()
+  }
+
+  filterBoth(){
+    let arrFiltered = this.state.news.filter(newItem => {
+      return this.filterC.includes(newItem.Category)
+    });
+
+    arrFiltered = arrFiltered.filter(newItem => {
+      return this.filterS.includes(newItem.Source)
+    });
+
+    this.setState({newsRender:arrFiltered.slice(0,arrFiltered.length)})
   }
 
   render(){
 
     let temp = [];
+
     const data = this.state.newsRender.slice(0, this.state.newQuantity)
-    console.log("Arr newsRender: ")
-    console.log(this.state.newsRender)
-    console.log("-----------------------")
+
+    // console.log(data.length)
+    // console.log("Arr newsRender: ")
+    // console.log(this.state.newsRender)
+    // console.log("-----------------------")
 
     return(
     <>
-      <Header submitEvent={this.handleSubmit} arrNoticias={this.state.newsRender} changeNews={this.setNewsRender}></Header>
+      <Header submitEvent={this.handleSubmit} arrNoticias={this.state.newsRender} changeNews={this.setFilter}></Header>
 
       <div className="content">
-      <button className="filtro-delete">Prueba</button>
 
-      <h2 className="searched" onClick={this.deleteSearch}>Resultados de: <span id="searched"></span><span className="close">&times;</span></h2>
+      <h2 className="searched" id="searched-result" onClick={this.deleteSearch}>Resultados de: <span id="searched"></span><span className="close">&times;</span></h2>
 
       {
         data.length>0 ? 
@@ -132,8 +247,10 @@ class Content extends React.Component{
       }) : <h2 className="no-result" >No existen resultados para su busqueda</h2>
       }
           <Scroll></Scroll>
+
+          
         <div className="container-scroll">
-          {data.length>0 ? <button onClick={this.handleClick} id="btnMore" className="btnMore">Ver más noticias</button> :<></>}
+          {data.length>=15 ? <button onClick={this.handleClick} id="btnMore" className="btnMore">Ver más noticias</button> :<></>}
         </div>
       </div>
     </>
@@ -146,10 +263,10 @@ function New({Url, Image, Title, Description , Category, Source, Date, Id, Bigge
 
   return(
   <div className={`new ${Bigger}`}>
-  <div className="description">
+  <a href={Url} className="description" target="_blank" rel="noreferrer">
     <h3 className="description-title">Descripción:</h3>
     <p>{Description}</p>
-  </div>
+  </a>
 
   <a href={Url} className={`news ${Bigger}`} key={Id} target="_blank" rel="noreferrer">
     <img src={Image} alt="No img"></img>
