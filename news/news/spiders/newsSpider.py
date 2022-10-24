@@ -205,12 +205,12 @@ class newsSpider(scrapy.Spider):
 
                 return
 
-            title = response.xpath("//h1[@class='title tiemposBold8 titularUnderBlanco']/text()").get()
+            title = response.xpath("string(//h1[@class='title tiemposBold8 titularUnderBlanco'])").get()
             description = response.xpath("//p[@class='epigraph regular_lead1']/text()").get()
 
             if (title == None):
 
-                title = response.xpath("//h1[@class='title tiemposBold8 titularUnderBlanco ']/text()").get()
+                title = response.xpath("//string(//h1[@class='title tiemposBold8 titularUnderBlanco '])").get()
 
             if (description == None):
 

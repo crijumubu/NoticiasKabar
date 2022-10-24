@@ -39,6 +39,6 @@ class controller:
         self.mongo.client.close()
 
 control = controller()
-control.insertWithoutRepeating()
-#control.mongo.extractJson()
+#control.insertWithoutRepeating()
+control.mongo.extractJson()
 control.close()
