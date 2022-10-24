@@ -1,5 +1,6 @@
 import React from "react";
 // import ReactDOM from "react-dom/client";
+
 import Scroll from "./scroll";
 import "./container.css";
 import Header from "./header";
@@ -10,8 +11,6 @@ class Content extends React.Component{
     this.state = {
       news: [],
       newsRender: [],
-      // filterC: [],
-      // filterS: [],
       newQuantity: 15,
       
     }
@@ -42,9 +41,6 @@ class Content extends React.Component{
   }    
 
   componentDidMount(){
-    // this.setState({filterC:[]})
-    // this.setState({filterS:[]})
-
     this.fetchApi(this.renderGrid);
   }
   
@@ -61,12 +57,11 @@ class Content extends React.Component{
   handleSubmit(e){
     
     const input = document.getElementById("searchInput");
-    console.log(input.value==="")
+    
     if(input.value === ""){
-      // console.log(document.getElementsByClassName("searched"))
       document.getElementById("searched-result").classList.add('inactive');
       return;
-      // console.log(document.getElementsByClassName("searched"))
+
     }
     document.getElementById("searched-result").classList.remove('inactive');
     const searchResult = this.search(input.value);
@@ -78,7 +73,6 @@ class Content extends React.Component{
 
     this.setState({newsRender:searchResult})
 
-    // input.value = '';
     e.preventDefault()
 
   }
@@ -111,19 +105,18 @@ class Content extends React.Component{
   }
 
   setFilter(arr, type=""){
-    // console.log(arr)
-    // console.log(type)
 
-    if("reset"){
+    this.deleteSearch();
+    if(arr==="reset"){
       this.setState({newsRender:this.state.news.slice(0,this.state.news.length)})
-      this.deleteSearch();
+
       return
     }
 
     if(arr ==="resetC"){
       console.log("resetC");
       this.filterC = []
-      // this.setState({filterC:[]})
+
       if(this.filterS.length>0){
         this.filterSources();
         return
@@ -131,11 +124,10 @@ class Content extends React.Component{
       this.setState({newsRender:this.state.news.slice(0,this.state.news.length)})
       return
     }
-    
     if(arr ==="resetS"){
 
       this.filterS = []
-      // this.setState({filterS:[]})
+
       if(this.filterC.length>0){
         this.filterCategories();
         return
@@ -148,22 +140,17 @@ class Content extends React.Component{
     if(type === "categories"){
 
       this.filterC = newFilter;
-      // this.setState({filterC: newFilter})
-      // console.log(this.state.filterC)
+
       this.filterCategories();
 
       return
     }
     
     if(type==="sources"){
-      // console.log(newFilter)
       this.filterS = newFilter;
-      // this.setState({filterS:newFilter})
       this.filterSources();
     }
 
-    // console.log(arr)
-    // this.setState({newsRender: arr})
   }
 
   filterCategories(){
@@ -180,7 +167,6 @@ class Content extends React.Component{
     
     this.filterBoth()
 
-    // console.log(this.state.filterC)
     
   }
 
@@ -192,7 +178,6 @@ class Content extends React.Component{
         return this.filterS.includes(newItem.Source)
       });
       
-      // console.log(arrFiltered)
       this.setState({newsRender:arrFiltered.slice(0,arrFiltered.length)})
 
       return
@@ -219,10 +204,6 @@ class Content extends React.Component{
 
     const data = this.state.newsRender.slice(0, this.state.newQuantity)
 
-    // console.log(data.length)
-    // console.log("Arr newsRender: ")
-    // console.log(this.state.newsRender)
-    // console.log("-----------------------")
 
     return(
     <>
