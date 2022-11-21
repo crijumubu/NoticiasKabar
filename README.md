@@ -9,4 +9,5 @@ El proposito del siguiente repositorio es llevar un registro del desarrollo del 
 * Python
 * ReactJS
 * NodeJS
-* Hadoop
+* MongoDB
+* Azure
